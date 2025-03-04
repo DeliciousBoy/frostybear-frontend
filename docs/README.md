@@ -10,10 +10,9 @@
 
 <h3> Contributors </h3>
 <p align="start">
-
-<a href="https://github.com/DeliciousBoy/frostybear-remake/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=DeliciousBoy/frostybear-remake" />
-</a>
+  <a href="https://github.com/DeliciousBoy/frostybear-frontend/graphs/contributors">
+    <img src="https://contrib.rocks/image?repo=DeliciousBoy/frostybear-frontend" />
+  </a>
 </p>
 
 ## Setup
