@@ -1,5 +1,5 @@
 <p align="center">
-  <img src=".github/img/logo.png" width="300" alt="FrostyBear Logo" />
+  <img src="../.github/img/logo.png" width="300" alt="FrostyBear Logo" />
 </p>
 <p align="center">
   <img alt="GitHub License" src="https://img.shields.io/github/license/DeliciousBoy/frostybear-remake">
