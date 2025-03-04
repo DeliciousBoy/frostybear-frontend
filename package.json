@@ -1,0 +1,26 @@
+{
+  "name": "frostybear-remake",
+  "version": "1.0.0",
+  "description": "Ecommerce web",
+  "keywords": [
+    "webservice"
+  ],
+  "homepage": "https://github.com/DeliciousBoy/frostybear-remake#readme",
+  "bugs": {
+    "url": "https://github.com/DeliciousBoy/frostybear-remake/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DeliciousBoy/frostybear-remake.git"
+  },
+  "license": "MIT",
+  "author": "Wittaya Tangdorn",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
