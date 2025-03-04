@@ -1,5 +1,9 @@
 # FrostyBear-Remake
 
+<p align="center">
+  <img src="github/logo.png" alt="FrostyBear Logo" />
+</p>
+
 <h3> Contributors </h3>
 <p align="start">
 
