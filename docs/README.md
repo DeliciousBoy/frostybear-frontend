@@ -4,8 +4,12 @@
 <p align="center">
   <img alt="GitHub License" src="https://img.shields.io/github/license/DeliciousBoy/frostybear-remake">
   <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/DeliciousBoy/frostybear-remake">
-  <img alt="Static Badge" src="https://img.shields.io/badge/PostgreSQL-blue?style=flat&logo=postgresql&logoColor=white&labelColor=gray">
-  <img alt="Static Badge" src="https://img.shields.io/badge/VueJs-green?style=flat&logo=vuedotjs&logoColor=white&labelColor=gray">
+  <img alt="NPM Version" src="https://img.shields.io/npm/v/express">
+</p>
+<p align="center">
+  <img alt="Static Badge" src="https://img.shields.io/badge/PostgreSQL-red?style=flat&logo=postgresql&logoColor=white&labelColor=gray">
+  <img alt="Static Badge" src="https://img.shields.io/badge/Vue.js-green?style=flat&logo=vuedotjs&logoColor=white&labelColor=gray">
+  <img alt="Static Badge" src="https://img.shields.io/badge/tailwindcss-blue?style=flat&logo=tailwindcss&logoColor=white&labelColor=gray">
 </p>
 
 <h3> Contributors </h3>
