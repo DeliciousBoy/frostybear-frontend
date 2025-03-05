@@ -11,6 +11,14 @@
   <img alt="Static Badge" src="https://img.shields.io/badge/Vue.js-green?style=flat&logo=vuedotjs&logoColor=white&labelColor=gray">
   <img alt="Static Badge" src="https://img.shields.io/badge/tailwindcss-blue?style=flat&logo=tailwindcss&logoColor=white&labelColor=gray">
 </p>
+<div align="center">
+  <p align="justify">
+  FrostyBear Remake is a delightful web application designed to bring 
+  the joy of ice cream ordering to your fingertips. With an intuitive 
+  interface and seamless user experience, we're reimagining how 
+  people enjoy their favorite frozen treats.
+  </p>
+</div>
 
 <h3> Contributors </h3>
 <p align="start">
