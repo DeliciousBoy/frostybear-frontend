@@ -1,13 +1,10 @@
 <script setup>
-import LoginPage from '@/components/LoginPage.vue'
+import LoginPage from "@/components/LoginPage.vue";
 </script>
 
 <template>
-  <div>
-    <LoginPage/>
-  </div>
+  <LoginPage />
 </template>
 
 <style>
-
 </style>
