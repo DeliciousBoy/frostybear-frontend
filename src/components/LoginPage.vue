@@ -1,42 +1,67 @@
 <template>
-  <!-- <input type="number" placeholder="กรุณากรอก" class="input" />
-  <button class="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">Responsive</button> -->
-  <div class="flex flex-wrap content-center justify-start flex-col">
-    <div class="chat chat-start">
-      <div class="chat-bubble chat-bubble-primary">
-        What kind of nonsense is this
-      </div>
-    </div>
-    <div class="chat chat-start">
-      <div class="chat-bubble chat-bubble-secondary">
-        Put me on the Council and not make me a Master!??
-      </div>
-    </div>
-    <div class="chat chat-start">
-      <div class="chat-bubble chat-bubble-accent">
-        That's never been done in the history of the Jedi.
-      </div>
-    </div>
-    <div class="chat chat-start">
-      <div class="chat-bubble chat-bubble-neutral">It's insulting!</div>
-    </div>
-    <div class="chat chat-end">
-      <div class="chat-bubble chat-bubble-info">Calm down, Anakin.</div>
-    </div>
-    <div class="chat chat-end">
-      <div class="chat-bubble chat-bubble-success">
-        You have been given a great honor.
-      </div>
-    </div>
-    <div class="chat chat-end">
-      <div class="chat-bubble chat-bubble-warning">
-        To be on the Council at your age.
-      </div>
-    </div>
-    <div class="chat chat-end">
-      <div class="chat-bubble chat-bubble-error">
-        It's never happened before.
+  <!-- Main -->
+  <div
+    class="h-screen py-20 p-4 md:p-20 lg:p-32 bg-custom-gradient"
+    
+  >
+    <!-- Glassmorphism Card -->
+    <div
+      class="glass-morphism max-w-sm rounded-lg overflow-hidden shadow-lg mx-auto"
+    >
+      <div class="p-6">
+        <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome Back!</h2>
+        <p class="text-gray-700 mb-6">Please sign in to your account</p>
+        <!-- form -->
+        <form>
+          <div class="mb-4">
+            <label class="block text-gray-700 font-bold mb-2" for="username">
+              Username
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="username"
+              type="text"
+              placeholder="Username"
+            />
+          </div>
+          <div class="mb-6">
+            <label class="block text-gray-700 font-bold mb-2" for="password">
+              Password
+            </label>
+            <input
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              id="password"
+              type="password"
+              placeholder="Password"
+            />
+          </div>
+          <div class="flex items-center justify-between">
+            <button
+              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              type="button"
+            >
+              Sign In
+            </button>
+            <a
+              class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
+              href="#"
+            >
+              Forgot Password?
+            </a>
+          </div>
+        </form>
       </div>
     </div>
   </div>
 </template>
+
+
+<style scoped>
+/* .glassmorphism {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 10px;
+} */
+</style>
