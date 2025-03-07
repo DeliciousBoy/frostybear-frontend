@@ -1,10 +1,14 @@
-<script setup>
-import LoginPage from "@/components/LoginPage.vue";
-</script>
-
 <template>
-  <LoginPage/>
+  <div id="app">
+    <router-view></router-view>
+  </div>
 </template>
+
+<script>
+export default {
+  name: "App",
+};
+</script>
 
 <style>
 </style>
