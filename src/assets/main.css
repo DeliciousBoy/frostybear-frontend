@@ -2,3 +2,11 @@
 @import "tailwindcss/utilities";
 @plugin "daisyui";
 
+/* Custom styles */
+.bg-custom-gradient {
+  @apply bg-gradient-to-l from-[#38bdf8] via-[#fb7185] to-[#84cc16];
+}
+
+.glass-morphism {
+  @apply bg-gray-100/15 bg-clip-padding backdrop-filter backdrop-blur-lg;
+}
