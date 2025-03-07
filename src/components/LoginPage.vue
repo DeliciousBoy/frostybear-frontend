@@ -9,27 +9,27 @@
       class="glass-morphism max-w-sm rounded-lg overflow-hidden shadow-lg mx-auto"
     >
       <div class="p-6">
-        <h2 class="text-2xl font-bold text-gray-800 mb-2">Welcome Back!</h2>
-        <p class="text-gray-700 mb-6">Please sign in to your account</p>
+        <h2 class="text-2xl font-bold text-white mb-2">Welcome Back!</h2>
+        <p class="text-white mb-6">Please sign in to your account</p>
         <!-- form -->
         <form>
           <div class="mb-4">
-            <label class="block text-gray-700 font-bold mb-2" for="username">
+            <label class="block text-white font-bold mb-2" for="username">
               Username
             </label>
             <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
               id="username"
               type="text"
               placeholder="Username"
             />
           </div>
           <div class="mb-6">
-            <label class="block text-gray-700 font-bold mb-2" for="password">
+            <label class="block text-white font-bold mb-2" for="password">
               Password
             </label>
             <input
-              class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
               id="password"
               type="password"
               placeholder="Password"

@@ -4,9 +4,9 @@
 
 /* Custom styles */
 .bg-custom-gradient {
-  @apply bg-gradient-to-l from-[#38bdf8] via-[#fb7185] to-[#84cc16];
+  @apply bg-gradient-to-r from-[#0f172a] to-[#334155];
 }
 
 .glass-morphism {
-  @apply bg-gray-100/15 bg-clip-padding backdrop-filter backdrop-blur-lg;
+  @apply bg-gray-100/10 bg-clip-padding backdrop-filter backdrop-blur-lg;
 }
