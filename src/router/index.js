@@ -22,6 +22,11 @@ const routes = [
         component: ShopPage
       },
       {
+        path: "Profile",
+        name: "Profile",
+        component: ProfilePage
+      },
+      {
         path: "checkout",
         name: "Checkout",
         component: CheckoutPage
