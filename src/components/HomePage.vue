@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div class="bg-white animate__animated animate__fadeIn">
 
     <header class="bg-white shadow-sm">
       <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
@@ -24,11 +24,11 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import { getAllProducts } from "../services/productService";
+import { getTrendProduct } from "../services/productService";
 
 const products = ref([]);
 
 onMounted(async () => {
-  products.value = await getAllProducts();
+  products.value = await getTrendProduct();
 });
 </script>

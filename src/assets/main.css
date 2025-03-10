@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Caveat+Brush|Roboto:700i');
 @import "tailwindcss";
 @import "tailwindcss/utilities";
 @plugin "daisyui";
@@ -11,4 +12,12 @@
 .glass-morphism {
   /* @apply bg-gray-100/10 bg-clip-padding backdrop-filter backdrop-blur-lg; */
   @apply bg-gray-400/10 rounded-md bg-clip-padding backdrop-filter backdrop-blur-md border border-gray-100;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: 'Caveat Brush', cursive;
 }

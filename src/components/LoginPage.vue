@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen py-20 p-4 md:p-20 lg:p-32 bg-custom-gradient">
+  <div class="h-screen py-20 p-4 md:p-20 lg:p-32 bg-custom-gradient animate__animated animate__fadeIn">
     <div class="glass-morphism max-w-sm rounded-lg overflow-hidden shadow-lg mx-auto">
       <div class="p-6">
         <h2 class="text-2xl font-bold text-white mb-2">Welcome Back!</h2>

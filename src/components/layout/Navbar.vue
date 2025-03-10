@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white">
+  <div class="bg-white animate__animated animate__fadeIn">
     <header class="absolute inset-x-0 top-0 z-50">
       <nav class="flex items-center justify-between p-6 lg:px-8" aria-label="Global">
         <div class="flex lg:flex-1">
@@ -66,7 +66,7 @@
     </header>
 
     <div v-if="route.path === '/'">
-      <div class="relative isolate px-6 pt-14 lg:px-8">
+      <div class="relative isolate px-6 pt-14 lg:px-8 animate__animated animate__fadeIn">
         <video autoplay loop muted class="absolute inset-0 w-full h-full object-cover -z-10">
           <source src="/video/Magnum.mp4" type="video/mp4" />
         </video>
