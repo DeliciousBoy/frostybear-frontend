@@ -5,6 +5,7 @@ import HomePage from "@/pages/HomePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import ShopPage from "@/pages/ShopPage.vue";
 import CheckoutPage from "@/pages/CheckoutPage.vue";
+import ProfilePage from "@/components/ProfilePage.vue";
 
 const routes = [
   {
