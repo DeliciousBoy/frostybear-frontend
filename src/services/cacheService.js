@@ -2,7 +2,7 @@
 const cache = new Map();
 
 // รายการ API ที่ต้องการให้ Cache
-const cacheablePaths = ["/products", "/trends/products"];
+const cacheablePaths = ["/products", "/trends/products", '/systemparam'];
 
 // ฟังก์ชันเช็คว่า URL ควรใช้ Cache หรือไม่
 function isCacheable(url) {

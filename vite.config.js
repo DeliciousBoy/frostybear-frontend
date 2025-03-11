@@ -11,6 +11,14 @@ export default defineConfig({
     tailwindcss(), 
     vue(), 
     vueDevTools()],
+    css: {
+      preprocessorOptions: {
+        css: {
+          // การใช้ font-awesome ในโปรเจค
+          additionalData: `@import 'font-awesome/css/font-awesome.min.css';`
+        }
+      }
+    },
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),

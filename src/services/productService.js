@@ -4,25 +4,32 @@ import { getCache, setCache } from "./cacheService";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 // ฟังก์ชันดึงข้อมูลโดยใช้ Cache
-async function fetchWithCache(url) {
-  const cachedData = getCache(url);
+async function fetchWithCache(url, params = {}) {
+  console.log("Fetching data from:", url);
+  console.log("Sending params:", params);
+
+  // สร้าง key สำหรับ Cache โดยรวม url และ params
+  const cacheKey = `${url}-${JSON.stringify(params)}`;
+  const cachedData = getCache(cacheKey);
   if (cachedData) {
-    console.log(`Fetching from cache: ${url}`);
+    console.log(`Fetching from cache: ${cacheKey}`);
     return cachedData;
   }
 
   try {
-    const response = await axios.get(url);
+    // ใช้ axios.get และส่ง params ผ่าน query string
+    const response = await axios.get(url, { params });
     const products = response.data.products.map((product) => ({
       id: product.product_id,
       name: product.product_name,
+      detail: product.product_detail,
       href: "#",
       price: `$${product.product_price}`,
       imageSrc: `data:image/png;base64,${product.product_image}`,
       imageAlt: product.product_name,
     }));
 
-    setCache(url, products); // บันทึกลง Cache
+    setCache(cacheKey, products); // บันทึกลง Cache
     return products;
   } catch (error) {
     console.error(`Error fetching ${url}:`, error);
@@ -31,8 +38,15 @@ async function fetchWithCache(url) {
 }
 
 // API GET ที่ใช้ Cache
-export function getAllProducts() {
-  return fetchWithCache(`${API_BASE_URL}/products`);
+export async function getAllProducts(filters = {}) {
+  const url = `${API_BASE_URL}/products`;
+
+  // ถ้า product_type_name เป็น array ว่างหรือ null ให้ลบ key ออกจาก filters
+  if (filters.product_type_name === null || (Array.isArray(filters.product_type_name) && filters.product_type_name.length === 0)) {
+    delete filters.product_type_name;
+  }
+
+  return fetchWithCache(url, filters);
 }
 
 export function getTrendProduct() {
