@@ -5,27 +5,30 @@ import HomePage from "@/pages/HomePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import ShopPage from "@/pages/ShopPage.vue";
 import CheckoutPage from "@/pages/CheckoutPage.vue";
+import ChangePasswordPage from "@/pages/ChangePasswordPage.vue";
+import { components } from "daisyui/imports";
+
 
 const routes = [
   {
     path: "/",
     component: MainLayout,
     children: [
-      { 
+      {
         path: "",
-        name: "Home", 
-        component: HomePage 
+        name: "Home",
+        component: HomePage,
       },
       {
         path: "shop",
         name: "Shop",
-        component: ShopPage
+        component: ShopPage,
       },
       {
         path: "checkout",
         name: "Checkout",
-        component: CheckoutPage
-      }
+        component: CheckoutPage,
+      },
     ],
   },
   {
@@ -35,14 +38,18 @@ const routes = [
       {
         path: "",
         name: "Login",
-        component: LoginPage 
+        component: LoginPage,
       },
-
+      {
+        path: "change-password",
+        name: "ChangePasswordPage",
+        components: ChangePasswordPage,
+      },
       /* ถ้าอยากเพิ่มหน้า Register หรือ Change password ก็เพิ่มตรงนี้ได้เลย */
-      // { 
-      //   path: "register", 
-      //   name: "Register", 
-      //   component: RegisterPage 
+      // {
+      //   path: "register",
+      //   name: "Register",
+      //   component: RegisterPage
       // },
       // {
       //   path: "change-password",

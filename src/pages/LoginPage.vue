@@ -5,14 +5,14 @@
 </template>
 
 <script>
-  import LoginPage from "@/components/LoginPage.vue";
+import LoginPage from "@/components/LoginPage.vue";
 
-  export default {
-    name: "PageLogin",
-    components: {
-      LoginPage,
-    },
-  };
+export default {
+  name: "PageLogin",
+  components: {
+    LoginPage,
+  },
+};
 </script>
 
 <style>

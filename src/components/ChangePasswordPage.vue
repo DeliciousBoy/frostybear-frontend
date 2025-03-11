@@ -4,31 +4,31 @@
       class="glass-morphism max-w-sm rounded-lg overflow-hidden shadow-lg mx-auto"
     >
       <div class="p-6">
-        <h2 class="text-2xl font-bold text-white mb-2">Welcome Back!</h2>
+        <h2 class="text-2xl font-bold text-white mb-2">Change your Password</h2>
         <p class="text-white mb-6">Please sign in to your account</p>
         <form @submit.prevent="submitForm">
           <div class="mb-4">
-            <label class="block text-white font-bold mb-2" for="username">
-              Username
+            <label class="block text-white font-bold mb-2" for="old_password">
+                Old password
             </label>
             <input
-              v-model="username"
+              v-model="old_password"
               class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
-              id="username"
+              id="old_password"
               type="text"
-              placeholder="Username"
+              placeholder="Old Password"
             />
           </div>
           <div class="mb-6">
-            <label class="block text-white font-bold mb-2" for="password">
-              Password
+            <label class="block text-white font-bold mb-2" for="new_password">
+              New Password
             </label>
             <input
-              v-model="password"
+              v-model="new_password"
               class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
-              id="password"
+              id="new_password"
               type="password"
-              placeholder="Password"
+              placeholder="New Password"
             />
           </div>
           <div class="flex items-center justify-between">
@@ -36,7 +36,7 @@
               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
             >
-              Sign In
+              Change Password
             </button>
             <a
               class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800"
@@ -49,10 +49,10 @@
 
         <!--ไปหน้า Register หรือหน้า Change password ปรับตรงนี้ได้เลย-->
 
-        <div class="mt-4 text-center text-white">
+        <!-- <div class="mt-4 text-center text-white">
           <router-link to="/login/register" class="text-blue-500">Register</router-link> |
           <router-link to="/login/change-password" class="text-blue-500">Change Password</router-link>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>
@@ -61,22 +61,27 @@
 <script>
 import { ref } from "vue";
 import { useRouter } from "vue-router";
+
 export default {
-  name: "LoginPage",
+  name: "ChangePasswordPage",
   setup() {
-    const username = ref("");
-    const password = ref("");
+    const old_password = ref("");
+    const new_password = ref("");
     const router = useRouter();
+
     const submitForm = () => {
-      if (username.value && password.value) {
-        router.push("/");
+      if (old_password.value && new_password.value) {
+        // Handle password change logic here
+        alert("Password changed successfully!");
+        router.push("/login");
       } else {
         alert("Please fill in both fields.");
       }
     };
+
     return {
-      username,
-      password,
+      old_password,
+      new_password,
       submitForm,
     };
   },
