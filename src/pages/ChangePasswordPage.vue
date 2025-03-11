@@ -1,6 +1,6 @@
 <template>
   <div class="">
-    <ChagPasswordPage />
+    <ChangePasswordPage />
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import ChangePasswordPage from "@/components/ChangePasswordPage.vue";
 
 export default {
-  name: "ChangePasswordPage",
+  name: "PasswordPageChange",
   components: {
     ChangePasswordPage,
   },

@@ -30,11 +30,11 @@ const routes = [
         name: "Profile",
         component: ProfilePage
       },
-      {
-        path: "Profile",
-        name: "Profile",
-        component: ProfilePage
-      },
+      // {
+      //   path: "Profile",
+      //   name: "Profile",
+      //   component: ProfilePage
+      // },
       {
         path: "checkout",
         name: "Checkout",
@@ -54,7 +54,7 @@ const routes = [
       {
         path: "change-password",
         name: "ChangePasswordPage",
-        components: ChangePasswordPage,
+        component: ChangePasswordPage,
       },
       /* ถ้าอยากเพิ่มหน้า Register หรือ Change password ก็เพิ่มตรงนี้ได้เลย */
       // {

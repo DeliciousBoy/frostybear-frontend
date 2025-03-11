@@ -1,8 +1,8 @@
 <template>
   <div class="">
-    <Login />
+    <!-- <Login /> -->
     <!-- <ChangePassword /> -->
-    <!-- <router-view /> -->
+    <router-view />
   </div>
 </template>
 

@@ -51,7 +51,7 @@
 
         <div class="mt-4 text-center text-white">
           <router-link to="/login/register" class="text-blue-500">Register</router-link> |
-          <router-link to="/login/change-password" class="text-blue-500">Change Password</router-link>
+          <router-link to="/login/change-password">Change Password</router-link>
         </div>
       </div>
     </div>
