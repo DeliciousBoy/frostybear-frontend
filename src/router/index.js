@@ -5,7 +5,7 @@ import HomePage from "@/pages/HomePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import ShopPage from "@/pages/ShopPage.vue";
 import CheckoutPage from "@/pages/CheckoutPage.vue";
-import ProfilePage from "@/components/ProfilePage.vue";
+import ProfilePage from "@/pages/ProfilePage.vue";
 import ChangePasswordPage from "@/pages/ChangePasswordPage.vue";
 import { components } from "daisyui/imports";
 
@@ -26,9 +26,9 @@ const routes = [
         component: ShopPage,
       },
       {
-        path: "Profile",
+        path: "profile",
         name: "Profile",
-        component: ProfilePage
+        component: ProfilePage,
       },
       // {
       //   path: "Profile",
