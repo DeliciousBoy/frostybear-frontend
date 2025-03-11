@@ -20,6 +20,10 @@ module.exports = {
         '80': '0.8',
         '90': '0.9',
       },
+      fontFamily: {
+        caveat: ["Caveat Brush", "cursive"],
+        roboto: ["Roboto", "sans-serif"],
+      },
     },
   },
   plugins: [
