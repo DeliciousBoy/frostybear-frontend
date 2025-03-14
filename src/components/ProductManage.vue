@@ -1,192 +1,132 @@
 <template>
-    <div v-if="currentTab === 'ProductTable'">
-        <div class="container mx-auto p-4">
-            <!-- ส่วนหัว: Search Bar + ปุ่ม Add -->
-            <div class="flex justify-between items-center mb-4">
-                <!-- Search Bar -->
-                <div>
-                    <input v-model="searchQuery" type="text" placeholder="Search..."
-                        class="border border-gray-300 rounded px-3 py-2" />
+    <div class="mx-auto p-5 bg-base-200 rounded-md shadow">
+        <div v-if="currentTab === 'ProductTable'">
+            <div class="container mx-auto p-4">
+                <!-- ส่วนหัว: Search Bar + ปุ่ม Add -->
+                <div class="flex justify-between items-center mb-4">
+                    <!-- Search Bar -->
+                    <div>
+                        <input v-model="searchQuery" type="text" placeholder="Search..."
+                            class="border border-gray-300 rounded px-3 py-2" />
+                    </div>
+
+                    <!-- ปุ่ม Add -->
+                    <div>
+                        <button @click="addProduct" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+                            Add
+                        </button>
+                    </div>
                 </div>
 
-                <!-- ปุ่ม Add -->
-                <div>
-                    <button @click="addProduct" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
-                        Add
-                    </button>
-                </div>
-            </div>
+                <!-- ตาราง -->
+                <table class="min-w-full border">
+                    <thead>
+                        <tr class="bg-gray-100 border-b">
+                            <th class="p-2 border-r">Number</th>
+                            <th class="p-2 border-r">Product Image</th>
+                            <th class="p-2 border-r">Product ID</th>
+                            <th class="p-2 border-r">Product Name</th>
+                            <th class="p-2 border-r">Product Detail</th>
+                            <th class="p-2 border-r">Product Price</th>
+                            <th class="p-2 border-r">Brand</th>
+                            <th class="p-2 border-r">Product Type</th>
+                            <th class="p-2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- วนแสดงข้อมูลด้วย paginatedData -->
+                        <tr v-for="(product, index) in paginatedData" :key="product.id"
+                            class="border-b hover:bg-gray-50">
+                            <!-- คำนวณลำดับตามหน้า -->
+                            <td class="p-2 border-r">
+                                {{ (currentPage - 1) * perPage + index + 1 }}
+                            </td>
+                            <th class="p-2 border-r">
+                                <div class="flex justify-center items-center">
+                                    <img :src="product.imageSrc" alt="Product"
+                                        class="w-16 h-16 object-cover rounded bg-gray-200 group-hover:opacity-75" />
+                                </div>
+                            </th>
+                            <td class="p-2 border-r">{{ product.id }}</td>
+                            <td class="p-2 border-r">{{ product.name }}</td>
+                            <td class="p-2 border-r">{{ product.detail }}</td>
+                            <td class="p-2 border-r">{{ product.price }}</td>
+                            <td class="p-2 border-r">{{ product.brand_name }}</td>
+                            <td class="p-2 border-r">{{ product.product_type }}</td>
+                            <td class="p-2">
+                                <button @click="editProduct(product)" class="text-blue-600 hover:underline">
+                                    Edit
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <!-- ตาราง -->
-            <table class="min-w-full border">
-                <thead>
-                    <tr class="bg-gray-100 border-b">
-                        <th class="p-2 border-r">ลำดับ</th>
-                        <th class="p-2 border-r">Name</th>
-                        <th class="p-2 border-r">Title</th>
-                        <th class="p-2 border-r">Status</th>
-                        <th class="p-2 border-r">Role</th>
-                        <th class="p-2">Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- วนแสดงข้อมูลด้วย paginatedData -->
-                    <tr v-for="(user, index) in paginatedData" :key="user.id" class="border-b hover:bg-gray-50">
-                        <!-- คำนวณลำดับตามหน้า -->
-                        <td class="p-2 border-r">
-                            {{ (currentPage - 1) * perPage + index + 1 }}
-                        </td>
-                        <td class="p-2 border-r">{{ user.name }}</td>
-                        <td class="p-2 border-r">{{ user.title }}</td>
-                        <td class="p-2 border-r">{{ user.status }}</td>
-                        <td class="p-2 border-r">{{ user.role }}</td>
-                        <td class="p-2">
-                            <button @click="editProduct(user)" class="text-blue-600 hover:underline">
-                                Edit
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <!-- ตัวแบ่งหน้า -->
-            <div class="mt-4 flex justify-between items-center">
-                <p>
-                    Page {{ currentPage }} of {{ totalPages }}
-                </p>
-                <div>
-                    <button @click="prevPage" :disabled="currentPage === 1"
-                        class="bg-gray-200 px-3 py-1 rounded mr-2 disabled:opacity-50">
-                        Prev
-                    </button>
-                    <button @click="nextPage" :disabled="currentPage === totalPages"
-                        class="bg-gray-200 px-3 py-1 rounded disabled:opacity-50">
-                        Next
-                    </button>
+                <!-- ตัวแบ่งหน้า -->
+                <div class="mt-4 flex justify-between items-center">
+                    <p>
+                        Page {{ currentPage }} of {{ totalPages }}
+                    </p>
+                    <div>
+                        <button @click="prevPage" :disabled="currentPage === 1"
+                            class="bg-gray-200 px-3 py-1 rounded mr-2 disabled:opacity-50">
+                            Prev
+                        </button>
+                        <button @click="nextPage" :disabled="currentPage === totalPages"
+                            class="bg-gray-200 px-3 py-1 rounded disabled:opacity-50">
+                            Next
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
+        <div v-else-if="currentTab === 'Productadd'">
+            <Addproduct />
+        </div>
+        <div v-else-if="currentTab === 'Productedit'">
+            <Editproduct />
+        </div>
     </div>
-    <div v-else-if="currentTab === 'Productadd'">
-        <Addproduct />
-    </div>
-    <div v-else-if="currentTab === 'Productedit'">
-        <Editproduct />
-    </div>
-    
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
 import Editproduct from './Editproduct.vue'
 import Addproduct from './Addproduct.vue'
+import { ref, computed, onMounted } from 'vue'
+import { getAllProducts } from '../services/productService'
+
 
 // สร้าง state และตัวแปรต่าง ๆ
 const currentTab = ref('ProductTable')
 const searchQuery = ref('')
 const currentPage = ref(1)
-const perPage = ref(10)
+const perPage = ref(5)
 
-// ตัวอย่างข้อมูลผู้ใช้
-const users = ref([
-    {
-        id: 1,
-        name: 'Lindsay Walton',
-        title: 'Front-end Developer',
-        status: 'Active',
-        role: 'Member',
-    },
-    {
-        id: 2,
-        name: 'Courtney Henry',
-        title: 'Designer',
-        status: 'Active',
-        role: 'Admin',
-    },
-    {
-        id: 3,
-        name: 'Tom Cook',
-        title: 'Director of Product',
-        status: 'Active',
-        role: 'Directives',
-    },
-    {
-        id: 4,
-        name: 'Whitney Francis',
-        title: 'Copywriter',
-        status: 'Program',
-        role: 'Member',
-    },
-    {
-        id: 5,
-        name: 'Leonard Krasner',
-        title: 'Senior Engineer',
-        status: 'Active',
-        role: 'Owner',
-    },
-    {
-        id: 6,
-        name: 'Floyd Miles',
-        title: 'Principal Designer',
-        status: 'Inactive',
-        role: 'Member',
-    },
-    // เพิ่มข้อมูลให้มากกว่า 10 แถวเพื่อทดสอบ pagination
-    {
-        id: 7,
-        name: 'John Doe',
-        title: 'Backend Developer',
-        status: 'Active',
-        role: 'Member',
-    },
-    {
-        id: 8,
-        name: 'Jane Smith',
-        title: 'Project Manager',
-        status: 'Active',
-        role: 'Admin',
-    },
-    {
-        id: 9,
-        name: 'Alice Brown',
-        title: 'UI/UX Designer',
-        status: 'Inactive',
-        role: 'Member',
-    },
-    {
-        id: 10,
-        name: 'Bob Johnson',
-        title: 'DevOps Engineer',
-        status: 'Active',
-        role: 'Member',
-    },
-    {
-        id: 11,
-        name: 'Emily Davis',
-        title: 'QA Specialist',
-        status: 'Active',
-        role: 'Member',
-    },
-    {
-        id: 12,
-        name: 'Michael Green',
-        title: 'Data Analyst',
-        status: 'Active',
-        role: 'Admin',
-    },
-])
+const products = ref([]);
+
+onMounted(async () => {
+    products.value = await getAllProducts()
+    console.log(products.value)
+    // เพิ่มฟิลด์ isBouncing ให้กับแต่ละสินค้า
+    products.value.forEach(product => {
+        product.isBouncing = false
+    })
+})
+
 
 // คำนวณข้อมูลที่ผ่านการค้นหา (Search)
 const filteredData = computed(() => {
-    if (!searchQuery.value) return users.value
+    if (!searchQuery.value) return products.value
 
     const search = searchQuery.value.toLowerCase()
-    return users.value.filter((user) => {
+    return products.value.filter((product) => {
         return (
-            user.name.toLowerCase().includes(search) ||
-            user.title.toLowerCase().includes(search) ||
-            user.status.toLowerCase().includes(search) ||
-            user.role.toLowerCase().includes(search)
+            product.id.toLowerCase().includes(search) ||
+            product.name.toLowerCase().includes(search) ||
+            product.detail.toLowerCase().includes(search) ||
+            product.price.toLowerCase().includes(search) ||
+            product.product_type.toLowerCase().includes(search) ||
+            product.brand_name.toLowerCase().includes(search)
         )
     })
 })
@@ -208,7 +148,7 @@ function addProduct() {
     currentTab.value = 'Productadd'
 }
 
-function editProduct(user) {
+function editProduct(product) {
     // alert(`แก้ไขข้อมูลของ: ${user.name}`)
     currentTab.value = 'Productedit'
 }
