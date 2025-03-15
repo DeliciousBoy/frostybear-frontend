@@ -1,5 +1,6 @@
 <template>
-  <div class="h-screen py-20 p-4 md:p-20 lg:p-32 bg-custom-gradient">
+
+  <div class="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]">
     <div
       class="glass-morphism max-w-sm rounded-lg overflow-hidden shadow-lg mx-auto"
     >
@@ -29,6 +30,18 @@
               id="new_password"
               type="password"
               placeholder="New Password"
+            />
+          </div>
+          <div class="mb-6">
+            <label class="block text-white font-bold mb-2" for="new_password">
+              Confirm Password
+            </label>
+            <input
+              v-model="confirm_password"
+              class="shadow appearance-none border rounded w-full py-2 px-3 text-white leading-tight focus:outline-none focus:shadow-outline"
+              id="confirm_password"
+              type="password"
+              placeholder="Confirm Password"
             />
           </div>
           <div class="flex items-center justify-between">
