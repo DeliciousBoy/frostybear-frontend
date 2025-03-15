@@ -23,6 +23,8 @@ async function fetchWithCache(url, params = {}) {
       id: product.product_id,
       name: product.product_name,
       detail: product.product_detail,
+      brand_name: product.brand.brand_name,
+      product_type: product.pdt.product_type_name,
       href: "#",
       price: `$${product.product_price}`,
       imageSrc: `data:image/png;base64,${product.product_image}`,
