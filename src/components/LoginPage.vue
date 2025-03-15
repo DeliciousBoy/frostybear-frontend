@@ -1,5 +1,5 @@
 <template>
-  <div class="h-screen py-20 p-4 md:p-20 lg:p-32 bg-custom-gradient">
+  <div class="absolute inset-0 -z-10 h-full w-full items-center px-5 py-24 [background:radial-gradient(125%_125%_at_50%_10%,#000_40%,#63e_100%)]">
     <div
       class="glass-morphism max-w-sm rounded-lg overflow-hidden shadow-lg mx-auto"
     >
