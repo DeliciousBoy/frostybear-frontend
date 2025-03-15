@@ -7,6 +7,7 @@ import ShopPage from "@/pages/ShopPage.vue";
 import CheckoutPage from "@/pages/CheckoutPage.vue";
 import ProfilePage from "@/pages/ProfilePage.vue";
 import ChangePasswordPage from "@/pages/ChangePasswordPage.vue";
+import RegisterPage from "@/pages/RegisterPage.vue";
 import DropdownlistPage from "@/pages/DropdownlistPage.vue";
 import { components } from "daisyui/imports";
 
@@ -60,6 +61,11 @@ const routes = [
         path: "change-password",
         name: "ChangePasswordPage",
         component: ChangePasswordPage,
+      },
+      {
+        path: "register",
+        name: "registerPage",
+        component: RegisterPage,
       },
       /* ถ้าอยากเพิ่มหน้า Register หรือ Change password ก็เพิ่มตรงนี้ได้เลย */
       // {
