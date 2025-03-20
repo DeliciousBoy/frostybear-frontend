@@ -45,6 +45,8 @@
             </button>
           </div>
         </form>
+        <p v-if="registration==true" class="alert alert-success mt-3">registration success</p>
+        <p v-if="registration==false" class="alert alert-danger mt-3">registration failed {{message}}</p>
         <div class="mt-4 text-center text-white">
           Have an account?
           <router-link
@@ -68,6 +70,8 @@ export default {
     return {
       username: null,
       password: null,
+      registration: null,
+      message: null
     }
   },
   methods: {
@@ -77,7 +81,9 @@ export default {
         password:this.password
       }
       try{
-        const response = await axios.post('http://localhost:3000/register', member) 
+        const response = await axios.post('http://localhost:3000/register', member)
+        this.registration = response.data.registration
+        this.message = response.data.message
       }
       catch(error){
         console.log(error)
