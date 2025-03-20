@@ -60,26 +60,29 @@
 </template>
 
 <script>
-import { ref } from "vue";
-import { useRouter } from "vue-router";
+import axios from "axios"
+
 export default {
-  name: "RegisterPage",
-  setup() {
-    const username = ref("");
-    const password = ref("");
-    const router = useRouter();
-    const submitForm = () => {
-      if (username.value && password.value) {
-        router.push("/");
-      } else {
-        alert("Please fill in both fields.");
-      }
-    };
+  name: 'Register',
+  data(){
     return {
-      username,
-      password,
-      submitForm,
-    };
+      username: null,
+      password: null,
+    }
   },
-};
+  methods: {
+    async submitForm(){
+      let member = {
+        username:this.username,
+        password:this.password
+      }
+      try{
+        const response = await axios.post('http://localhost:3000/register', member) 
+      }
+      catch(error){
+        console.log(error)
+      }
+    }
+  }
+}
 </script>
