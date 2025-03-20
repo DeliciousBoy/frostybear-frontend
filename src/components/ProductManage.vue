@@ -54,7 +54,7 @@
                             <td class="p-2 border-r">{{ product.brand_name }}</td>
                             <td class="p-2 border-r">{{ product.product_type }}</td>
                             <td class="p-2">
-                                <button @click="editProduct(product)" class="text-blue-600 hover:underline">
+                                <button @click="selectProduct(product)" class="text-blue-600 hover:underline">
                                     Edit
                                 </button>
                             </td>
@@ -69,11 +69,11 @@
                     </p>
                     <div>
                         <button @click="prevPage" :disabled="currentPage === 1"
-                            class="bg-gray-200 px-3 py-1 rounded mr-2 disabled:opacity-50">
+                            class="bg-gray-200 px-5 py-2 rounded mr-2 disabled:opacity-50">
                             Prev
                         </button>
                         <button @click="nextPage" :disabled="currentPage === totalPages"
-                            class="bg-gray-200 px-3 py-1 rounded disabled:opacity-50">
+                            class="bg-gray-200 px-5 py-2 rounded disabled:opacity-50">
                             Next
                         </button>
                     </div>
@@ -81,10 +81,17 @@
             </div>
         </div>
         <div v-else-if="currentTab === 'Productadd'">
-            <Addproduct />
+            <Addproduct 
+                @closeForm="onCloseForm"
+            />
         </div>
         <div v-else-if="currentTab === 'Productedit'">
-            <Editproduct />
+            <Editproduct 
+            v-if="
+                selectedProduct" 
+                :product="selectedProduct" 
+                @closeForm="onCloseForm"
+            />
         </div>
     </div>
 </template>
@@ -103,10 +110,10 @@ const currentPage = ref(1)
 const perPage = ref(5)
 
 const products = ref([]);
+const selectedProduct = ref(null)
 
 onMounted(async () => {
     products.value = await getAllProducts()
-    console.log(products.value)
     // เพิ่มฟิลด์ isBouncing ให้กับแต่ละสินค้า
     products.value.forEach(product => {
         product.isBouncing = false
@@ -148,9 +155,10 @@ function addProduct() {
     currentTab.value = 'Productadd'
 }
 
-function editProduct(product) {
+function selectProduct(product) {
     // alert(`แก้ไขข้อมูลของ: ${user.name}`)
     currentTab.value = 'Productedit'
+    selectedProduct.value = { ...product }
 }
 
 function prevPage() {
@@ -163,6 +171,13 @@ function nextPage() {
     if (currentPage.value < totalPages.value) {
         currentPage.value++
     }
+}
+
+// ฟังก์ชันที่รับ event จาก EditProduct
+function onCloseForm() {
+  console.log('ProductManage: onCloseForm called')
+  currentTab.value = 'ProductTable'
+  console.log(currentTab.value)
 }
 </script>
 
