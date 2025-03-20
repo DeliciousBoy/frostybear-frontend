@@ -203,6 +203,7 @@ function selectProductType(type) {
 function submitForm() {
   // คุณอาจส่งข้อมูลไปยัง API ที่นี่ หรือทำการ validate เพิ่มเติมได้
   console.log('Form submitted:', {
+    productId: editData.id,
     productName: editData.name,
     productDescription: editData.detail,
     productPrice: editData.price,
