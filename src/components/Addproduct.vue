@@ -106,6 +106,7 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
+import axios from 'axios'
 import { getBrandsWithCache, getProductTypesWithCache } from '../services/systemParamService'
 
 // ข้อมูลฟอร์ม
@@ -116,7 +117,6 @@ const selectedBrand = ref(null)
 const selectedProductType = ref(null)
 
 // เก็บไฟล์รูปสินค้า และรูป preview
-const productImageFile = ref(null)
 const previewImage = ref(null)
 
 // เก็บรายการแบรนด์และประเภทสินค้า
@@ -139,7 +139,6 @@ onMounted(async () => {
 function onFileChange(e) {
   const file = e.target.files[0]
   if (file) {
-    productImageFile.value = file
     // แสดงตัวอย่างรูป
     const reader = new FileReader()
     reader.onload = (event) => {
@@ -162,18 +161,27 @@ function selectProductType(type) {
 }
 
 // ฟังก์ชัน Submit Form
-function submitForm() {
-  // คุณอาจส่งข้อมูลไปยัง API ที่นี่ หรือทำการ validate เพิ่มเติมได้
-  console.log('Form submitted:', {
-    productName: productName.value,
-    productDescription: productDescription.value,
-    productPrice: productPrice.value,
-    brand: selectedBrand.value,
-    productType: selectedProductType.value,
-    imageFile: productImageFile.value
-  })
+async function submitForm() {
+  const formData = {
+    product_id: "099",
+    product_image: "previewImage.value",
+    product_name: productName.value,
+    product_detail: productDescription.value,
+    product_price: productPrice.value,
+    brand_id: selectedBrand.value.byte_type,
+    product_type: selectedProductType.value.byte_type,
+  };
 
-  alert('บันทึกข้อมูลเรียบร้อย (ตัวอย่าง)')
+  console.log('Form submitted:', formData);
+
+  try {
+    // ส่งคำขอ PUT ไปที่ API โดยใช้ editData.id เป็นส่วนของ URL
+    const response = await axios.post(`http://localhost:3000/products`, formData);
+    console.log('API response:', response.data);
+    emit('update')
+  } catch (error) {
+    console.error('API error:', error);
+  }
 }
 
 function handleClose() {

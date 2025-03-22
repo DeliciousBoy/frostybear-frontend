@@ -83,6 +83,7 @@
         <div v-else-if="currentTab === 'Productadd'">
             <Addproduct 
                 @closeForm="onCloseForm"
+                @update="fetchProducts"
             />
         </div>
         <div v-else-if="currentTab === 'Productedit'">
@@ -91,6 +92,7 @@
                 selectedProduct" 
                 :product="selectedProduct" 
                 @closeForm="onCloseForm"
+                @update="fetchProducts"
             />
         </div>
     </div>
@@ -113,12 +115,18 @@ const products = ref([]);
 const selectedProduct = ref(null)
 
 onMounted(async () => {
+    fetchProducts()
+})
+
+async function fetchProducts(){
+    console.log('fetchProducts called')
     products.value = await getAllProducts()
     // เพิ่มฟิลด์ isBouncing ให้กับแต่ละสินค้า
     products.value.forEach(product => {
         product.isBouncing = false
     })
-})
+    console.log(products.value)
+}
 
 
 // คำนวณข้อมูลที่ผ่านการค้นหา (Search)

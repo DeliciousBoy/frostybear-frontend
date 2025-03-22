@@ -104,6 +104,7 @@
 
 <script setup>
 import { ref, onMounted, reactive, watch } from 'vue'
+import axios from "axios";
 import { getBrandsWithCache, getProductTypesWithCache } from '../services/systemParamService'
 
 const props = defineProps({
@@ -130,7 +131,7 @@ const selectedProductType = ref(null)
 const brands = ref([])
 const productTypes = ref([])
 
-const emit = defineEmits(['closeForm'])
+const emit = defineEmits()
 
 // ดึงข้อมูลแบรนด์และประเภทสินค้าทันทีที่คอมโพเนนต์ถูก mount
 onMounted(async () => {
@@ -200,24 +201,34 @@ function selectProductType(type) {
 }
 
 // ฟังก์ชัน Submit Form
-function submitForm() {
-  // คุณอาจส่งข้อมูลไปยัง API ที่นี่ หรือทำการ validate เพิ่มเติมได้
-  console.log('Form submitted:', {
-    productId: editData.id,
-    productName: editData.name,
-    productDescription: editData.detail,
-    productPrice: editData.price,
-    brand: selectedBrand.value,
-    productType: selectedProductType.value,
-    imageFile: editData.image
-  })
+async function submitForm() {
+  // เตรียมข้อมูลที่จะส่ง
+  const formData = {
+    product_id: editData.id,
+    product_image: editData.image,
+    product_name: editData.name,
+    product_detail: editData.detail,
+    product_price: editData.price,
+    brand_id: selectedBrand.value.byte_type,
+    product_type: selectedProductType.value.byte_type,
+  };
 
-  alert('บันทึกข้อมูลเรียบร้อย (ตัวอย่าง)')
+  console.log('Form submitted:', formData);
+
+  try {
+    // ส่งคำขอ PUT ไปที่ API โดยใช้ editData.id เป็นส่วนของ URL
+    const response = await axios.put(`http://localhost:3000/products/${editData.id}`, formData);
+    console.log('API response:', response.data);
+    emit('update')
+    emit('closeForm')
+  } catch (error) {
+    console.error('API error:', error);
+  }
+
 }
 
 
 function handleClose() {
-  console.log('EditProduct: handleClose called')
   emit('closeForm')
 }
 
