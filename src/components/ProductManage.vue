@@ -24,7 +24,6 @@
                         <tr class="bg-gray-100 border-b">
                             <th class="p-2 border-r">Number</th>
                             <th class="p-2 border-r">Product Image</th>
-                            <th class="p-2 border-r">Product ID</th>
                             <th class="p-2 border-r">Product Name</th>
                             <th class="p-2 border-r">Product Detail</th>
                             <th class="p-2 border-r">Product Price</th>
@@ -47,7 +46,6 @@
                                         class="w-16 h-16 object-cover rounded bg-gray-200 group-hover:opacity-75" />
                                 </div>
                             </th>
-                            <td class="p-2 border-r">{{ product.id }}</td>
                             <td class="p-2 border-r">{{ product.name }}</td>
                             <td class="p-2 border-r">{{ product.detail }}</td>
                             <td class="p-2 border-r">{{ product.price }}</td>
@@ -136,7 +134,6 @@ const filteredData = computed(() => {
     const search = searchQuery.value.toLowerCase()
     return products.value.filter((product) => {
         return (
-            product.id.toLowerCase().includes(search) ||
             product.name.toLowerCase().includes(search) ||
             product.detail.toLowerCase().includes(search) ||
             product.price.toLowerCase().includes(search) ||
