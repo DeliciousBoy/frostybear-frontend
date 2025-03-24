@@ -120,7 +120,7 @@ onMounted(async () => {
 
 async function fetchProducts(){
     console.log('fetchProducts called')
-    products.value = await getAllProducts()
+    products.value = await getAllProducts({}, true);
     // เพิ่มฟิลด์ isBouncing ให้กับแต่ละสินค้า
     products.value.forEach(product => {
         product.isBouncing = false

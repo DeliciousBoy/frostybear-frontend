@@ -131,7 +131,7 @@ const selectedProductType = ref(null)
 const brands = ref([])
 const productTypes = ref([])
 
-const emit = defineEmits()
+const emit = defineEmits(['closeForm', 'update'])
 
 // ดึงข้อมูลแบรนด์และประเภทสินค้าทันทีที่คอมโพเนนต์ถูก mount
 onMounted(async () => {

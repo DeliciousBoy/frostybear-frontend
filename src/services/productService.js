@@ -4,16 +4,21 @@ import { getCache, setCache } from "./cacheService";
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
 
 // ฟังก์ชันดึงข้อมูลโดยใช้ Cache
-async function fetchWithCache(url, params = {}) {
+// productService.js
+async function fetchWithCache(url, params = {}, forceRefresh = false) {
   console.log("Fetching data from:", url);
   console.log("Sending params:", params);
 
   // สร้าง key สำหรับ Cache โดยรวม url และ params
   const cacheKey = `${url}-${JSON.stringify(params)}`;
-  const cachedData = getCache(cacheKey);
-  if (cachedData) {
-    console.log(`Fetching from cache: ${cacheKey}`);
-    return cachedData;
+  
+  // ถ้าไม่ forceRefresh ให้ลองดึงจาก cache ก่อน
+  if (!forceRefresh) {
+    const cachedData = getCache(cacheKey);
+    if (cachedData) {
+      console.log(`Fetching from cache: ${cacheKey}`);
+      return cachedData;
+    }
   }
 
   try {
@@ -31,7 +36,8 @@ async function fetchWithCache(url, params = {}) {
       imageAlt: product.product_name,
     }));
 
-    setCache(cacheKey, products); // บันทึกลง Cache
+    // บันทึกข้อมูลลง cache เฉพาะเมื่อไม่ได้ force refresh
+    setCache(cacheKey, products);
     return products;
   } catch (error) {
     console.error(`Error fetching ${url}:`, error);
@@ -39,17 +45,21 @@ async function fetchWithCache(url, params = {}) {
   }
 }
 
-// API GET ที่ใช้ Cache
-export async function getAllProducts(filters = {}) {
+// API GET ที่ใช้ Cache พร้อมรองรับ forceRefresh
+export async function getAllProducts(filters = {}, forceRefresh = false) {
   const url = `${API_BASE_URL}/products`;
 
   // ถ้า product_type_name เป็น array ว่างหรือ null ให้ลบ key ออกจาก filters
-  if (filters.product_type_name === null || (Array.isArray(filters.product_type_name) && filters.product_type_name.length === 0)) {
+  if (
+    filters.product_type_name === null ||
+    (Array.isArray(filters.product_type_name) && filters.product_type_name.length === 0)
+  ) {
     delete filters.product_type_name;
   }
 
-  return fetchWithCache(url, filters);
+  return fetchWithCache(url, filters, forceRefresh);
 }
+
 
 export function getTrendProduct() {
   return fetchWithCache(`${API_BASE_URL}/trends/products`);

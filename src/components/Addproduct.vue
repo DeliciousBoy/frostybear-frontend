@@ -123,7 +123,7 @@ const previewImage = ref(null)
 const brands = ref([])
 const productTypes = ref([])
 
-const emit = defineEmits(['closeForm'])
+const emit = defineEmits(['closeForm', 'update'])
 
 // ดึงข้อมูลแบรนด์และประเภทสินค้าทันทีที่คอมโพเนนต์ถูก mount
 onMounted(async () => {
@@ -179,6 +179,7 @@ async function submitForm() {
     const response = await axios.post(`http://localhost:3000/products`, formData);
     console.log('API response:', response.data);
     emit('update')
+    emit('closeForm')
   } catch (error) {
     console.error('API error:', error);
   }
