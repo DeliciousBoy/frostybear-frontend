@@ -163,8 +163,7 @@ function selectProductType(type) {
 // ฟังก์ชัน Submit Form
 async function submitForm() {
   const formData = {
-    product_id: "099",
-    product_image: "previewImage.value",
+    product_image: previewImage.value,
     product_name: productName.value,
     product_detail: productDescription.value,
     product_price: productPrice.value,
