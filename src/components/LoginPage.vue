@@ -34,9 +34,11 @@
             <div class="flex items-center cursor-pointer gap-2">
               <label class="checkBox">
                 <input id="ch1" type="checkbox" />
-                <div class="transition"> </div> 
-              </label> 
-              <div class="text-gray-500 hover:text-gray-400 text-sm">Terms and Conditions</div>
+                <div class="transition"></div>
+              </label>
+              <div class="text-gray-500 hover:text-gray-400 text-sm">
+                Terms and Conditions
+              </div>
             </div>
             <router-link
               class="text-sm font-display font-semibold text-gray-500 hover:text-gray-400 cursor-pointer"
@@ -67,28 +69,39 @@
   </div>
 </template>
 
-<script>
-import { ref } from "vue";
+<script setup>
+import axios from "axios";
+import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-export default {
-  name: "LoginPage",
-  setup() {
-    const username = ref("");
-    const password = ref("");
-    const router = useRouter();
-    const submitForm = () => {
-      if (username.value && password.value) {
-        router.push("/");
-      } else {
-        alert("Please fill in both fields.");
-      }
-    };
-    return {
-      username,
-      password,
-      submitForm,
-    };
-  },
+import {useToast} from 'vue-toast-notification';
+// import 'vue-toast-notification/dist/theme-sugar.css';
+
+axios.defaults.withCredentials = true;
+
+const username = ref(null);
+const password = ref(null);
+const loginStatus = ref(null);
+const token = ref(null);
+const decodedToken = ref(null);
+const $toast = useToast();
+
+const submitForm = async () => {
+  const member = {
+    username: username.value,
+    password: password.value,
+  };
+  try {
+    const response = await axios.post("http://localhost:3000/login", member);
+    loginStatus.value = response.data.loginStatus;
+    if (loginStatus.value) {
+      $toast.success("Login successful!");
+    } else {
+      $toast.error("Login failed. Please try again.");
+    }
+  } catch (error) {
+    console.log(error);
+    $toast.error("An error occurred. Please try again.");
+  }
 };
 </script>
 
