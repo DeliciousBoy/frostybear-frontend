@@ -94,7 +94,7 @@
       Close
     </button>
     <button class="btn btn-primary flex-1" @click="submitForm">
-      Add Product
+      Confirm
     </button>
   </div>
 </div>

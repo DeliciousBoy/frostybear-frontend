@@ -32,7 +32,7 @@ async function fetchWithCache(url, params = {}, forceRefresh = false) {
       product_type: product.pdt.product_type_name,
       href: "#",
       price: `${product.product_price}`,
-      imageSrc: `data:image/png;base64,${product.product_image}`,
+      imageSrc: `${product.product_image}`,
       imageAlt: product.product_name,
     }));
 
