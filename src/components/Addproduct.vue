@@ -171,12 +171,9 @@ async function submitForm() {
     product_type: selectedProductType.value.byte_type,
   };
 
-  console.log('Form submitted:', formData);
-
   try {
     // ส่งคำขอ PUT ไปที่ API โดยใช้ editData.id เป็นส่วนของ URL
     const response = await axios.post(`http://localhost:3000/products`, formData);
-    console.log('API response:', response.data);
     emit('update')
     emit('closeForm')
   } catch (error) {
@@ -185,7 +182,6 @@ async function submitForm() {
 }
 
 function handleClose() {
-  console.log('EditProduct: handleClose called')
   emit('closeForm')
 }
 </script>
