@@ -1,16 +1,16 @@
 <template>
   <div class="">
-    <ProfilePage />
+    <Profile />
   </div>
 </template>
 
 <script>
-import ProfilePage from "@/components/ProfilePage.vue";
+import Profile from "@/components/Profile.vue";
 
 export default {
-  name: "PageProfile",
+  name: "profile",
   components: {
-    ProfilePage,
+    Profile,
   },
 };
 </script>
