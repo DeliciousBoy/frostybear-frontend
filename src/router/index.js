@@ -10,7 +10,7 @@ import ProfilePage from "@/pages/ProfilePage.vue";
 import ChangePasswordPage from "@/pages/ChangePasswordPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
 import DropdownlistPage from "@/pages/DropdownlistPage.vue";
-import ProfilePage from "@/pages/ProfilePage.vue";
+import Profile from "@/components/Profile.vue";
 import { components } from "daisyui/imports";
 
 const routes = [
@@ -28,11 +28,11 @@ const routes = [
         name: "Shop",
         component: ShopPage,
       },
-      {
-        path: "profile",
-        name: "Profile",
-        component: ProfilePage,
-      },
+      // {
+      //   path: "profile",
+      //   name: "Profile",
+      //   component: ProfilePage,
+      // },
       // {
       //   path: "Profile",
       //   name: "Profile",
@@ -89,7 +89,7 @@ const routes = [
       {
         path: "",
         name: "profile",
-        components: ProfilePage,
+        components: Profile,
       }
     ]
   },
