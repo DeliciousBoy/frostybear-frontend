@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import MainLayout from "@/layouts/MainLayout.vue";
 import AuthLayout from "@/layouts/AuthLayout.vue";
+import ProfileLayout from "@/layouts/ProfileLayout.vue";
 import HomePage from "@/pages/HomePage.vue";
 import LoginPage from "@/pages/LoginPage.vue";
 import ShopPage from "@/pages/ShopPage.vue";
@@ -9,6 +10,7 @@ import ProfilePage from "@/pages/ProfilePage.vue";
 import ChangePasswordPage from "@/pages/ChangePasswordPage.vue";
 import RegisterPage from "@/pages/RegisterPage.vue";
 import DropdownlistPage from "@/pages/DropdownlistPage.vue";
+import ProfilePage from "@/pages/ProfilePage.vue";
 import { components } from "daisyui/imports";
 
 const routes = [
@@ -79,6 +81,17 @@ const routes = [
       //   component: ChangePasswordPage,
       // },
     ],
+  },
+  {
+    path: "/profile",
+    components: ProfileLayout,
+    children: [
+      {
+        path: "",
+        name: "profile",
+        components: ProfilePage,
+      }
+    ]
   },
 ];
 
