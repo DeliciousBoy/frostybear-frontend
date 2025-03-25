@@ -73,7 +73,7 @@
 import axios from "axios";
 import { onMounted, ref } from "vue";
 import { useRouter } from "vue-router";
-import {useToast} from 'vue-toast-notification';
+import { useToast } from "vue-toast-notification";
 // import 'vue-toast-notification/dist/theme-sugar.css';
 
 axios.defaults.withCredentials = true;
@@ -103,6 +103,29 @@ const submitForm = async () => {
     $toast.error("An error occurred. Please try again.");
   }
 };
+
+const getCookie = () => {
+  try {
+    token.value = Cookies.get("token");
+    decodedToken.value = jwtDecode(token.value);
+    if (decodedToken.value != null) {
+      $toast.success("Token retrieved successfully!");
+    }
+  } catch (error) {
+    console.error(`Failed to get token ${error}`);
+  }
+};
+
+const checkCart = async () => {
+  try {
+    const resonse = await axios.post(
+      "http://localhost:3000/cart",
+      member
+    );
+  } catch (error) {
+    console.log(error);
+  }
+}
 </script>
 
 <style scoped>
