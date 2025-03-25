@@ -51,11 +51,17 @@
                             <td class="p-2 border-r">{{ product.price }}</td>
                             <td class="p-2 border-r">{{ product.brand_name }}</td>
                             <td class="p-2 border-r">{{ product.product_type }}</td>
-                            <td class="p-2">
-                                <button @click="selectProduct(product)" class="text-blue-600 hover:underline">
+                            <td class="p-2 flex justify-center gap-2">
+                                <button @click="selectProduct(product)"
+                                    class="w-15 bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-200 ease-in-out shadow-sm focus:outline-none">
                                     Edit
                                 </button>
+                                <button @click="openConfirmDelete(product)"
+                                    class="w-15 bg-red-500 text-white py-2 rounded-md hover:bg-red-600 transition duration-200 ease-in-out shadow-sm focus:outline-none">
+                                    Delete
+                                </button>
                             </td>
+
                         </tr>
                     </tbody>
                 </table>
@@ -77,21 +83,17 @@
                     </div>
                 </div>
             </div>
+            <!-- Confirm Delete Popup -->
+            <Confirmdeletepopup v-if="showConfirmPopup" :product="selectedProduct" @confirm="handleConfirmDelete" @cancel="handleCancelDelete" />
         </div>
+
+
         <div v-else-if="currentTab === 'Productadd'">
-            <Addproduct 
-                @closeForm="onCloseForm"
-                @update="fetchProducts"
-            />
+            <Addproduct @closeForm="onCloseForm" @update="fetchProducts" />
         </div>
         <div v-else-if="currentTab === 'Productedit'">
-            <Editproduct 
-            v-if="
-                selectedProduct" 
-                :product="selectedProduct" 
-                @closeForm="onCloseForm"
-                @update="fetchProducts"
-            />
+            <Editproduct v-if="
+                selectedProduct" :product="selectedProduct" @closeForm="onCloseForm" @update="fetchProducts" />
         </div>
     </div>
 </template>
@@ -100,6 +102,8 @@
 import Editproduct from './Editproduct.vue'
 import Addproduct from './Addproduct.vue'
 import { ref, computed, onMounted } from 'vue'
+import axios from 'axios'
+import Confirmdeletepopup from './Confirmdeletepopup.vue'
 import { getAllProducts } from '../services/productService'
 
 
@@ -112,18 +116,19 @@ const perPage = ref(5)
 const products = ref([]);
 const selectedProduct = ref(null)
 
+const showConfirmPopup = ref(false)   // ควบคุมการแสดง popup
+const productToDelete = ref(null)     // เก็บ product id ที่ต้องการลบ
+
 onMounted(async () => {
     fetchProducts()
 })
 
-async function fetchProducts(){
-    console.log('fetchProducts called')
+async function fetchProducts() {
     products.value = await getAllProducts({}, true);
     // เพิ่มฟิลด์ isBouncing ให้กับแต่ละสินค้า
     products.value.forEach(product => {
         product.isBouncing = false
     })
-    console.log(products.value)
 }
 
 
@@ -161,10 +166,38 @@ function addProduct() {
 }
 
 function selectProduct(product) {
-    // alert(`แก้ไขข้อมูลของ: ${user.name}`)
     currentTab.value = 'Productedit'
     selectedProduct.value = { ...product }
 }
+
+// เมื่อกดปุ่ม Delete ให้เก็บ product id และเปิด popup
+function openConfirmDelete(product) {
+    selectedProduct.value = { ...product }
+    console.log("Open confirm popup for product:", product.id)
+    productToDelete.value = product.id
+    showConfirmPopup.value = true
+}
+
+async function handleConfirmDelete() {
+    if (productToDelete.value) {
+        try {
+            const response = await axios.delete(`http://localhost:3000/products/${productToDelete.value}`);
+            await fetchProducts() // รีเฟรชข้อมูลหลังลบ
+        } catch (error) {
+            console.error('Error deleting product:', error)
+        }
+    }
+    // ปิด popup และเคลียร์ productToDelete
+    showConfirmPopup.value = false
+    productToDelete.value = null
+}
+
+function handleCancelDelete() {
+    showConfirmPopup.value = false
+    productToDelete.value = null
+}
+
+
 
 function prevPage() {
     if (currentPage.value > 1) {
@@ -180,12 +213,8 @@ function nextPage() {
 
 // ฟังก์ชันที่รับ event จาก EditProduct
 function onCloseForm() {
-  console.log('ProductManage: onCloseForm called')
-  currentTab.value = 'ProductTable'
-  console.log(currentTab.value)
+    currentTab.value = 'ProductTable'
 }
 </script>
 
-<style scoped>
-/* สามารถปรับแต่งสไตล์เพิ่มเติมได้ตามต้องการ */
-</style>
+<style scoped></style>
