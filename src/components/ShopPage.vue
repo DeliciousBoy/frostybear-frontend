@@ -30,7 +30,7 @@
                 <!-- Filters -->
                 <form class="mt-4 border-t border-gray-200">
                   <h3 class="sr-only">Categories</h3>
-                <ul role="list" class="px-2 py-3 font-medium text-gray-900">
+                  <ul role="list" class="px-2 py-3 font-medium text-gray-900">
                     <li v-for="category in subCategories" :key="category.name">
                       <a href="#" @click.prevent="handleCategoryClick(category)" class="block px-2 py-3">
                         {{ category.name }} test
@@ -43,7 +43,9 @@
                     <h3 class="-mx-2 -my-3 flow-root">
                       <DisclosureButton
                         class="flex w-full items-center justify-between bg-white px-2 py-3 text-gray-400 hover:text-gray-500">
-                        <span class="font-medium text-gray-900">{{ section.name }}</span>
+                        <span class="font-medium text-gray-900">{{
+                          section.name
+                        }}</span>
                         <span class="ml-6 flex items-center">
                           <PlusIcon v-if="!open" class="size-5" aria-hidden="true" />
                           <MinusIcon v-else class="size-5" aria-hidden="true" />
@@ -52,22 +54,17 @@
                     </h3>
                     <DisclosurePanel class="pt-6">
                       <div class="space-y-6">
-                      <div v-for="(option, optionIdx) in section.options" :key="option.value" class="flex gap-3">
-                        <div class="flex h-5 shrink-0 items-center">
-                          <input 
-                            :id="`filter-${section.id}-${optionIdx}`" 
-                            :name="`${section.id}[]`" 
-                            :value="option.value" 
-                            type="checkbox" 
-                            :checked="option.checked" 
-                            @change="handleFilterClick(option)"
-                            class="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto" 
-                          />
-                          <label :for="`filter-${section.id}-${optionIdx}`" class="text-sm text-gray-600">
-                            {{ option.label }}
-                          </label>
+                        <div v-for="(option, optionIdx) in section.options" :key="option.value" class="flex gap-3">
+                          <div class="flex h-5 shrink-0 items-center">
+                            <input :id="`filter-${section.id}-${optionIdx}`" :name="`${section.id}[]`"
+                              :value="option.value" type="checkbox" :checked="option.checked"
+                              @change="handleFilterClick(option)"
+                              class="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto" />
+                            <label :for="`filter-${section.id}-${optionIdx}`" class="text-sm text-gray-600">
+                              {{ option.label }}
+                            </label>
+                          </div>
                         </div>
-                      </div>
                       </div>
                     </DisclosurePanel>
                   </Disclosure>
@@ -80,7 +77,9 @@
 
       <main class="mx-auto w-screen px-4 sm:px-6 lg:px-8 animate__animated animate__fadeIn">
         <div class="flex items-baseline justify-between border-b border-gray-200 pt-5 pb-6">
-          <h1 class="text-4xl font-bold tracking-tight text-gray-900">FrostyBear Shop</h1>
+          <h1 class="text-4xl font-bold tracking-tight text-gray-900">
+            FrostyBear Shop
+          </h1>
 
           <div class="flex items-center">
             <Menu as="div" class="relative inline-block text-left">
@@ -101,8 +100,13 @@
                   class="absolute right-0 z-10 mt-2 w-40 origin-top-right rounded-md bg-white ring-1 shadow-2xl ring-black/5 focus:outline-hidden">
                   <div class="py-1">
                     <MenuItem v-for="option in sortOptions" :key="option.name" v-slot="{ active }">
-                    <a :href="option.href"
-                      :class="[option.current ? 'font-medium text-gray-900' : 'text-gray-500', active ? 'bg-gray-100 outline-hidden' : '', 'block px-4 py-2 text-sm']">{{ option.name }}</a>
+                    <a :href="option.href" :class="[
+                          option.current
+                            ? 'font-medium text-gray-900'
+                            : 'text-gray-500',
+                          active ? 'bg-gray-100 outline-hidden' : '',
+                          'block px-4 py-2 text-sm',
+                        ]">{{ option.name }}</a>
                     </MenuItem>
                   </div>
                 </MenuItems>
@@ -130,7 +134,9 @@
               <h3 class="sr-only">Categories</h3>
               <ul role="list" class="space-y-4 border-b border-gray-200 pb-6 text-sm font-medium text-gray-900">
                 <li v-for="category in subCategories" :key="category.name">
-                  <a href="#" @click.prevent="handleCategoryClick(category)">{{ category.name }}</a>
+                  <a href="#" @click.prevent="handleCategoryClick(category)">{{
+                    category.name
+                  }}</a>
                 </li>
               </ul>
 
@@ -139,7 +145,9 @@
                 <h3 class="-my-3 flow-root">
                   <DisclosureButton
                     class="flex w-full items-center justify-between bg-white py-3 text-sm text-gray-400 hover:text-gray-500">
-                    <span class="font-medium text-gray-900">{{ section.name }}</span>
+                    <span class="font-medium text-gray-900">{{
+                      section.name
+                    }}</span>
                     <span class="ml-6 flex items-center">
                       <PlusIcon v-if="!open" class="size-5" aria-hidden="true" />
                       <MinusIcon v-else class="size-5" aria-hidden="true" />
@@ -151,15 +159,10 @@
                     <div v-for="(option, optionIdx) in section.options" :key="option.value" class="flex gap-3">
                       <div class="flex h-5 shrink-0 items-center">
                         <div class="group grid size-4 grid-cols-1">
-                          <input 
-                                :id="`filter-${section.id}-${optionIdx}`" 
-                                :name="`${section.id}[]`" 
-                                :value="option.value" 
-                                type="checkbox" 
-                                :checked="option.checked" 
-                                @change="handleFilterClick(option)"
-                                class="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto" 
-                              />
+                          <input :id="`filter-${section.id}-${optionIdx}`" :name="`${section.id}[]`"
+                            :value="option.value" type="checkbox" :checked="option.checked"
+                            @change="handleFilterClick(option)"
+                            class="col-start-1 row-start-1 appearance-none rounded-sm border border-gray-300 bg-white checked:border-indigo-600 checked:bg-indigo-600 indeterminate:border-indigo-600 indeterminate:bg-indigo-600 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 disabled:border-gray-300 disabled:bg-gray-100 disabled:checked:bg-gray-100 forced-colors:appearance-auto" />
                           <svg
                             class="pointer-events-none col-start-1 row-start-1 size-3.5 self-center justify-self-center stroke-white group-has-disabled:stroke-gray-950/25"
                             viewBox="0 0 14 14" fill="none">
@@ -189,44 +192,40 @@
                   class="grid grid-cols-1 xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5"
                   @click="handleEvent"> -->
 
-                <div class="flex flex-wrap items-center justify-start gap-8 mt-10 mb-5 pl-[4.688rem]" @click="handleEvent">
-
+                <div class="flex flex-wrap items-center justify-start gap-8 mt-10 mb-5 pl-[4.688rem]"
+                  @click="handleEvent">
                   <div v-for="(product, index) in products" :key="index"
                     class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
-                    <a href="#">
-                      <img :src="product.imageSrc" alt="Product"
+                    <!-- เปลี่ยนจาก <a> เป็น <div> และใช้ router -->
+                    <div @click="goToProduct(product.id)" class="cursor-pointer">
+                      <img :src="product.imageSrc" :alt="product.name"
                         class="aspect-square w-full rounded-t-md bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
-                      <div class="px-4 py-3 w-72">
-                        <span class="text-gray-400 mr-3 uppercase text-xs"> {{ product.detail }}</span>
-                        <p class="text-lg font-bold text-black truncate block capitalize">
-                          {{ product.name }}
-                        </p>
-                        <div class="flex items-center">
-                          <p class="text-lg font-semibold text-black cursor-auto my-3">
-                            {{ product.price }}
-                          </p>
-                          <!-- <del>
-                            <p class="text-sm text-gray-600 cursor-auto ml-2">
-                              ${{ product.originalPrice }}
-                            </p>
-                          </del> -->
-                          <div class="ml-auto">
-                            <!-- <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
-                              class="bi bi-bag-plus" viewBox="0 0 16 16">
-                              <path fill-rule="evenodd"
-                                d="M8 7.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0v-1.5H6a.5.5 0 0 1 0-1h1.5V8a.5.5 0 0 1 .5-.5z" />
-                              <path
-                                d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
-                            </svg> -->
+                    </div>
 
-                            <button class="btn btn-white-600" @click="animateCart(product.id)">
-                              <font-awesome-icon :icon="cartIconClass" :class="{ 'fa-bounce': product.isBouncing }" />
-                              Add to Cart
-                            </button>
-                          </div>
+                    <div class="px-4 py-3 w-72">
+                      <span class="text-gray-400 mr-3 uppercase text-xs">
+                        {{ product.detail }}
+                      </span>
+                      <p class="text-lg font-bold text-black truncate block capitalize">
+                        {{ product.name }}
+                      </p>
+                      <div class="flex items-center">
+                        <p class="text-lg font-semibold text-black cursor-auto my-3">
+                          {{ formatPrice(product.price) }}
+                        </p>
+                        <div class="ml-auto">
+                        <!-- ในส่วนของปุ่ม Add to Cart ให้แก้ไขเป็นดังนี้ -->
+                        <button class="btn btn-white-600" @click.stop="animateCart(product)" :disabled="product.isBouncing">
+                          <font-awesome-icon 
+                            :icon="['fas', 'cart-plus']" 
+                            :class="{ 'fa-bounce': product.isBouncing }"
+                            :style="{ '--fa-animation-duration': '1s' }"
+                          />
+                          {{ product.isBouncing ? "Adding..." : "Add to Cart" }}
+                        </button>
                         </div>
                       </div>
-                    </a>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -237,13 +236,17 @@
     </div>
   </div>
 </template>
-
 <script setup>
-import { ref, onMounted } from 'vue'
-import { getAllProducts } from '../services/productService'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-import { faCartPlus } from '@fortawesome/free-solid-svg-icons';
-import { getBrandsWithCache, getProductTypesWithCache } from "../services/systemParamService";
+import { ref, onMounted } from "vue";
+import { useRoute } from "vue-router";
+import { getAllProducts } from "../services/productService";
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faCartPlus } from '@fortawesome/free-solid-svg-icons'
+import {
+  getBrandsWithCache,
+  getProductTypesWithCache,
+} from "../services/systemParamService";
 import {
   Dialog,
   DialogPanel,
@@ -256,123 +259,312 @@ import {
   MenuItems,
   TransitionChild,
   TransitionRoot,
-} from '@headlessui/vue'
-import { XMarkIcon } from '@heroicons/vue/24/outline'
-import { ChevronDownIcon, FunnelIcon, MinusIcon, PlusIcon, Squares2X2Icon } from '@heroicons/vue/20/solid'
+} from "@headlessui/vue";
+import { XMarkIcon } from "@heroicons/vue/24/outline";
+import { useRouter } from 'vue-router'
+import {
+  ChevronDownIcon,
+  FunnelIcon,
+  MinusIcon,
+  PlusIcon,
+  Squares2X2Icon,
+} from "@heroicons/vue/20/solid";
+import axios from "axios";
+import Cookies from "js-cookie";
+import { EventBus } from "../event-bus";
+import { jwtDecode } from "jwt-decode";
+axios.defaults.withCredentials = true;
+// Reactive state
+const router = useRouter()
+const products = ref([]);
+const subCategories = ref([]);
+const filters = ref([]);
+const mobileFiltersOpen = ref(false);
+const decodedToken = ref(null);
+const username = ref(null);
+const cartId = ref(null);
+const cartIconClass = ref(faCartPlus);
+const sortOptions = [
+  {
+    name: "Most Popular",
+    href: "#",
+    current: true,
+  },
+  {
+    name: "Best Rating",
+    href: "#",
+    current: false,
+  },
+  {
+    name: "Newest",
+    href: "#",
+    current: false,
+  },
+  {
+    name: "Price: Low to High",
+    href: "#",
+    current: false,
+  },
+  {
+    name: "Price: High to Low",
+    href: "#",
+    current: false,
+  },
+];
 
-const products = ref([])
-const subCategories = ref([]) // เปลี่ยนเป็น ref เพื่อให้สามารถอัปเดตได้
-const filters = ref([]) // เปลี่ยนเป็น ref เพื่อให้สามารถอัปเดตได้
+// เพิ่มไอคอนเข้าใน library
+library.add(faCartPlus)
 
-onMounted(async () => {
-  products.value = await getAllProducts()
-  // เพิ่มฟิลด์ isBouncing ให้กับแต่ละสินค้า
-  products.value.forEach(product => {
-    product.isBouncing = false
-  })
-
-  // ดึงข้อมูลแบรนด์และประเภทสินค้า
+// ในฟังก์ชัน animateCart ให้แก้ไขเป็นดังนี้
+const animateCart = async (product) => {
+  if (product.isBouncing) return;
+  
+  // เริ่มต้นการ Bouncing
+  product.isBouncing = true;
+  
   try {
-    const brands = await getBrandsWithCache()
-    const productTypes = await getProductTypesWithCache()
+    await getCookie();
+    if (!username.value) {
+      alert("กรุณาล็อกอินก่อนเพิ่มสินค้าในตะกร้า");
+      router.push('/login');
+      return;
+    }
 
-    // แปลงข้อมูลแบรนด์เป็น subCategories
-    subCategories.value = brands.map(brand => ({
-      name: brand.byte_name,
-      href: `#${brand.byte_type}` // หรือ URL ที่คุณต้องการ
-    }))
-
-    // แปลงข้อมูลประเภทสินค้าเป็น filters
-    filters.value = [
-      {
-        id: 'product-type',
-        name: 'Product Type',
-        options: productTypes.map(type => ({
-          value: type.byte_type,
-          label: type.byte_name,
-          checked: false // กำหนดให้ไม่ถูกเลือกเริ่มต้น
-        }))
+    if (!cartId.value) {
+      cartId.value = await chkCart();
+      if (!cartId.value) {
+        cartId.value = await addCart();
       }
-    ]
-  } catch (error) {
-    console.error("Error fetching data:", error)
-  }
-})
+    }
 
-const handleEvent = (event) => {
-  event.preventDefault(); // ป้องกันการทำงานของเหตุการณ์ที่เกิดขึ้น
-  console.log('Button was clicked, but default action is prevented.');
+    const success = await addCartDtl(product);
+    if (success) {
+      EventBus.emit('cartdtlOK', { id: cartId.value });
+    }
+  } catch (error) {
+    console.error("Error adding to cart:", error);
+    alert("เกิดข้อผิดพลาดในการเพิ่มสินค้า");
+  } finally {
+    // หยุดการ Bouncing หลังจาก 1 วินาที
+    setTimeout(() => {
+      product.isBouncing = false;
+    }, 1000);
+  }
+};
+
+const formatPrice = (price) => {
+  if (!price) return '฿0'
+  return `฿${price.toLocaleString()}`
 }
 
-const handleCategoryClick = async (category) => {
-  console.log("Selected category:", category);
+
+const goToProduct = (productId) => {
+  router.push(`/products/${productId}`)
+}
+
+// ฟังก์ชันสำหรับตรวจสอบการล็อกอิน
+const getCookie = async () => {
   try {
-    const filteredProducts = await getAllProducts({ brand_name: category.name });
-    console.log("Filtered products by brand:", filteredProducts); // เพิ่ม log เพื่อตรวจสอบ
-    products.value = filteredProducts;
-  } catch (error) {
-    console.error("Error fetching products by brand:", error);
+    const token = Cookies.get("token");
+    if (token) {
+      decodedToken.value = jwtDecode(token);
+      username.value = decodedToken.value.username;
+    }
+  } catch (err) {
+    console.error("Failed to decode token:", err);
+  }
+};
+
+const chkCart = async () => {
+  if (!username.value) return null;
+  
+  try {
+    const response = await axios.post('http://localhost:3000/carts/chkcart', {
+      username: username.value
+    }, {
+      withCredentials: true
+    });
+    
+    if (response.data.success) {
+      return response.data.cartId || null;
+    }
+    return null;
+  } catch (err) {
+    console.error('Error checking cart:', err.response?.data || err.message);
+    return null;
+  }
+};
+
+const addCart = async () => {
+  if (!username.value) return null;
+  
+  try {
+    const response = await axios.post('http://localhost:3000/carts/addcart', {
+      cusId: username.value
+    }, {
+      withCredentials: true
+    });
+    
+    if (response.data.success) {
+      return response.data.cartId || null;
+    }
+    return null;
+  } catch (err) {
+    console.error('Error creating cart:', err.response?.data || err.message);
+    return null;
+  }
+};
+
+const addCartDtl = async (product) => {
+  if (!product || !product.id || !product.price) {
+    console.error("Invalid product data:", product);
+    alert("ข้อมูลสินค้าไม่สมบูรณ์");
+    return false;
+  }
+
+  // ตรวจสอบว่ามี cartId หรือไม่
+  if (!cartId.value) {
+    console.error("No cart ID available");
+    return false;
+  }
+
+  const payload = {
+    cartId: cartId.value,
+    pdId: product.id,
+    pdPrice: product.price,
+    quantity: 1
+  };
+
+  try {
+    const response = await axios.post(
+      'http://localhost:3000/carts/addcartdtl', 
+      payload,
+      { withCredentials: true }
+    );
+
+    if (response.data.success) {
+      console.log("Added to cart:", response.data);
+      return true;
+    } else {
+      console.error("Backend error:", response.data);
+      alert(response.data.message || "เพิ่มสินค้าไม่สำเร็จ");
+      return false;
+    }
+  } catch (err) {
+    console.error("API Error:", err.response?.data || err.message);
+    if (err.response?.status === 401) {
+      alert("กรุณาล็อกอินก่อนทำการซื้อสินค้า");
+    } else {
+      alert("เกิดข้อผิดพลาดในการเพิ่มสินค้าในตะกร้า");
+    }
+    return false;
   }
 };
 
 const handleFilterClick = async (filter) => {
-  console.log("Selected filter:", filter);
-
-  // สลับสถานะ checked
   filter.checked = !filter.checked;
-
+  
   try {
-    // สร้าง array ของ product_type_name ที่ถูกเลือก
+    // ดึงค่าที่ถูกเลือกทั้งหมดจาก filters
     const selectedFilters = filters.value[0].options
-      .filter(option => option.checked)
-      .map(option => option.label);
+      .filter((option) => option.checked)
+      .map((option) => option.label);
 
-    let filteredProducts;
+    // สร้าง query parameters สำหรับการกรอง
+    const queryParams = {};
+    
     if (selectedFilters.length > 0) {
-      // ถ้ามี filter ที่ถูกเลือก ส่ง array ของ product_type_name ไปยัง API
-      filteredProducts = await getAllProducts({ product_type_name: selectedFilters });
+      queryParams.product_type_name = selectedFilters;
     } else {
-      // ถ้าไม่มี filter ที่ถูกเลือก ส่ง null เพื่อดึงข้อมูลทั้งหมด
-      filteredProducts = await getAllProducts({ product_type_name: null });
+      // ถ้าไม่มีตัวกรองที่เลือก ให้ดึงข้อมูลทั้งหมด
+      queryParams.product_type_name = null;
     }
 
-    console.log("Filtered products by type:", filteredProducts); // เพิ่ม log เพื่อตรวจสอบ
+    // ดึงข้อมูลสินค้าตามตัวกรอง
+    const filteredProducts = await getAllProducts(queryParams);
     products.value = filteredProducts;
+    
+    // รีเซ็ตสถานะการโหลดของแต่ละสินค้า
+    products.value.forEach((product) => {
+      product.isBouncing = false;
+    });
+    
   } catch (error) {
     console.error("Error fetching products by type:", error);
+    // สามารถเพิ่มการแสดงข้อความผิดพลาดให้ผู้ใช้ทราบได้ที่นี่
   }
 };
 
-const sortOptions = [
-  { name: 'Most Popular', href: '#', current: true },
-  { name: 'Best Rating', href: '#', current: false },
-  { name: 'Newest', href: '#', current: false },
-  { name: 'Price: Low to High', href: '#', current: false },
-  { name: 'Price: High to Low', href: '#', current: false },
-]
-
-const cartIconClass = ref(faCartPlus);
-const isBouncing = ref(false);
-let isAnimating = false; // ตัวแปรสำหรับเช็คว่าอนิเมชั่นกำลังทำงานอยู่หรือไม่
-
-const animateCart = (productId) => {
-  if (isAnimating) return; // ถ้ามีการอนิเมชั่นอยู่แล้ว ให้ไม่ทำอะไร
-  isAnimating = true; // เริ่มอนิเมชั่น
+// // ฟังก์ชันสำหรับอนิเมชั่นตะกร้า
+// const animateCart = async (product) => {
+//   if (product.isBouncing) return;
   
-  const product = products.value.find(p => p.id === productId);
+//   product.isBouncing = true;
   
-  if (product) {
-    product.isBouncing = true;
+//   try {
+//     // ตรวจสอบการล็อกอินก่อน
+//     await getCookie();
+//     if (!username.value) {
+//       alert("กรุณาล็อกอินก่อนเพิ่มสินค้าในตะกร้า");
+//       router.push('/login');
+//       return;
+//     }
 
-    // ใช้ requestAnimationFrame เพื่อให้การเปลี่ยนแปลงใน DOM ลื่นไหลขึ้น
-    requestAnimationFrame(() => {
-      setTimeout(() => {
-        product.isBouncing = false;
-        isAnimating = false; // เสร็จสิ้นการอนิเมชั่น
-      }, 1000);
-    });
+//     // ตรวจสอบหรือสร้างตะกร้าใหม่
+//     if (!cartId.value) {
+//       cartId.value = await chkCart();
+//       if (!cartId.value) {
+//         cartId.value = await addCart();
+//       }
+//     }
+
+//     // เพิ่มสินค้าในตะกร้า
+//     const success = await addCartDtl(product);
+//     if (success) {
+//       EventBus.emit('cartdtlOK', { id: cartId.value });
+//     }
+//   } catch (error) {
+//     console.error("Error adding to cart:", error);
+//     alert("เกิดข้อผิดพลาดในการเพิ่มสินค้า");
+//   } finally {
+//     product.isBouncing = false;
+//   }
+// };
+
+// โหลดข้อมูลเมื่อ component ถูกโหลด
+onMounted(async () => {
+  await getCookie();
+  
+  // ตรวจสอบตะกร้าถ้ามีการล็อกอินแล้ว
+  if (username.value) {
+    cartId.value = await chkCart();
   }
-}
-
-const mobileFiltersOpen = ref(false)
+  
+  // โหลดข้อมูลอื่นๆ...
+  products.value = await getAllProducts();
+  products.value.forEach((product) => {
+    product.isBouncing = false;
+  });
+  try {
+    const brands = await getBrandsWithCache();
+    const productTypes = await getProductTypesWithCache();
+    subCategories.value = brands.map((brand) => ({
+      name: brand.byte_name,
+      href: `#${brand.byte_type}`,
+    }));
+    filters.value = [
+      {
+        id: "product-type",
+        name: "Product Type",
+        options: productTypes.map((type) => ({
+          value: type.byte_type,
+          label: type.byte_name,
+          checked: false,
+        })),
+      },
+    ];
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+});
 </script>

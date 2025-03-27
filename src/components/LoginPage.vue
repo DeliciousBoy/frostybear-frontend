@@ -84,6 +84,7 @@ const loginStatus = ref(null);
 const token = ref(null);
 const decodedToken = ref(null);
 const $toast = useToast();
+const router = useRouter();
 
 const submitForm = async () => {
   const member = {
@@ -95,6 +96,7 @@ const submitForm = async () => {
     loginStatus.value = response.data.loginStatus;
     if (loginStatus.value) {
       $toast.success("Login successful!");
+      router.push('/');
     } else {
       $toast.error("Login failed. Please try again.");
     }
