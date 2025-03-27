@@ -12,6 +12,9 @@ import RegisterPage from "@/pages/RegisterPage.vue";
 import DropdownlistPage from "@/pages/DropdownlistPage.vue";
 import Profile from "@/components/Profile.vue";
 import { components } from "daisyui/imports";
+import CartShow from "../components/CartShow.vue"
+import CartList from "../components/CartList.vue"
+import ProductShow from "../components/ProductShow.vue"
 
 const routes = [
   {
@@ -33,11 +36,11 @@ const routes = [
       //   name: "Profile",
       //   component: ProfilePage,
       // },
-      // {
-      //   path: "Profile",
-      //   name: "Profile",
-      //   component: ProfilePage
-      // },
+      {
+        path: "Profile",
+        name: "Profile",
+        component: ProfilePage
+      },
       {
         path: "checkout",
         name: "Checkout",
@@ -48,6 +51,23 @@ const routes = [
         name: "Dropdown",
         component: DropdownlistPage,
       },
+      {
+        // กำหนดว่า route นี้รับ parameter ต้องระบุให้ตรงกันด้วย
+        path: '/products/:id',
+        name: 'ProductShow',
+        component: ProductShow
+      },
+      {
+        // กำหนดว่า route นี้รับ parameter ต้องระบุให้ตรงกันด้วย
+        path: '/cartShow/:cartId',
+        name: 'CartShow',
+        component: CartShow
+    },
+    {
+        path:'/cartList/',
+        name:'CartList',
+        component:CartList
+    },
     ],
   },
   {
@@ -82,17 +102,17 @@ const routes = [
       // },
     ],
   },
-  {
-    path: "/profile",
-    components: ProfileLayout,
-    children: [
-      {
-        path: "",
-        name: "profile",
-        components: Profile,
-      }
-    ]
-  },
+  // {
+  //   path: "/profile",
+  //   components: ProfileLayout,
+  //   children: [
+  //     {
+  //       path: "",
+  //       name: "profile",
+  //       components: Profile,
+  //     }
+  //   ]
+  // },
 ];
 
 const router = createRouter({
