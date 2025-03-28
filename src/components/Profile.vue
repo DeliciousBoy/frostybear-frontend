@@ -198,11 +198,11 @@ const getCookie = () => {
   try {
     token.value = Cookies.get("token");
     if (token.value) {
-      decodedToken.value = jwtDecode(token.value);
-      console.log(`MainMenu-->${decodedToken.value}`);
-      username.value = decodedToken.value.username;
-      role.value = decodedToken.value.role;
-      console.log("username: ", username.value);
+      decodedToken.value = jwtDecode(token.value)
+      console.log(`MainMenu-->${decodedToken.value}`)
+      id.value = decodedToken.value.id
+      username.value = decodedToken.value.username
+      role.value = decodedToken.value.role
     } else {
       decodedToken.value = null;
     }
@@ -216,10 +216,20 @@ function startEditUsername() {
   editingUsername.value = true;
   tempUsername.value = username.value;
 }
-function confirmEditUsername() {
-  username.value = tempUsername.value;
-  editingUsername.value = false;
+async function confirmEditUsername() {
+  const formData = {
+    username: tempUsername.value
+  }
+  await axios.put(`http://localhost:3000/putusername/${id.value}`, formData)
+  editingUsername.value = false
+  if (response.status === 200) {
+
+      // หากใช้ cookie ในการเก็บข้อมูลผู้ใช้ ก็สามารถอัปเดต cookie ด้วยได้
+      document.cookie = `username=${formData.username}; path=/;`
+    }
 }
+
+
 function cancelEditUsername() {
   editingUsername.value = false;
 }
