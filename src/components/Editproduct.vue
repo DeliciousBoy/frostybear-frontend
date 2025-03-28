@@ -105,6 +105,7 @@ import { ref, onMounted, reactive, watch } from 'vue'
 import axios from "axios";
 import { getBrandsWithCache, getProductTypesWithCache } from '../services/systemParamService'
 import { jwtDecode } from 'jwt-decode'
+import { clearCache } from '../../src/services/cacheService'
 
 const props = defineProps({
   product: {
@@ -261,6 +262,7 @@ async function submitForm() {
     
     emit('update')
     emit('closeForm')
+    clearCache();
   } catch (error) {
     console.error('API error:', error);
     alert(`เกิดข้อผิดพลาด: ${error.response?.data?.error || error.message}`)
