@@ -32,7 +32,7 @@
         </button>
         <dialog id="username_modal" class="modal">
           <div class="modal-box">
-            <form method="dialog" novalidate>
+            <form method="dialog">
               <h4 class="text-xl text-black">Change Password</h4>
               <div class="mb-5 mt-2">
                 <input
@@ -56,6 +56,8 @@
               <div class="modal-action">
                 <button
                   class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                  type="button"
+                  onclick="username_modal.close()"
                 >
                   ✕
                 </button>
@@ -74,7 +76,7 @@
         </button>
         <dialog id="password_modal" class="modal">
           <div class="modal-box">
-            <form method="dialog" novalidate>
+            <form method="dialog">
               <h4 class="text-xl text-black">Change Password</h4>
               <div class="relative flex flex-col space-y-4 mt-2 mx-2">
                 <div>
@@ -118,6 +120,8 @@
               <div class="modal-action">
                 <button
                   class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+                  type="button"
+                  onclick="password_modal.close()"
                 >
                   ✕
                 </button>
@@ -258,10 +262,16 @@ async function updatePassword() {
   await hashPassword(oldPassword.value);
   if (!isMatch.value) {
     alert("Passwod incorrect.");
+    oldPassword.value = "";
+    newPassword.value = "";
+    confirmNewPassword.value = "";
     return;
   }
   if (newPassword.value !== confirmNewPassword.value) {
     alert("New password does not match confirm password.");
+    oldPassword.value = "";
+    newPassword.value = "";
+    confirmNewPassword.value = "";
     return;
   }
   const formData = {
