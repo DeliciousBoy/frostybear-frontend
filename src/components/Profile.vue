@@ -24,7 +24,7 @@
       class="relative flex w-full items-center rounded-xl bg-[#1E293B] p-6 shadow-lg"
     >
       <div class="ml-4">
-        <h4 class="text-xl text-white">Change username</h4>
+       
         <button
           class="mt-2 px-2 py-2 text-white bg-gray-500 rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all"
           onclick="my_modal_3.showModal()"
@@ -46,6 +46,7 @@
                   <button
                     class="w-[150px] bg-black h-[40px] my-3 flex items-center justify-center rounded-xl cursor-pointer relative overflow-hidden transition-all duration-500 ease-in-out shadow-md hover:scale-105 hover:shadow-lg before:absolute before:top-0 before:-left-full before:w-full before:h-full before:bg-gradient-to-r before:from-[#009b49] before:to-[rgb(105,184,141)] before:transition-all before:duration-500 before:ease-in-out before:z-[-1] before:rounded-xl hover:before:left-0 text-[#fff]"
                     type="submit"
+                    @click="confirmEditUsername"
                   >
                     Change username
                   </button>
@@ -62,7 +63,6 @@
       </div>
 
       <div class="ml-4">
-        <h4 class="text-xl text-white">Change password</h4>
         <button
           class="mt-2 px-2 py-2 text-white bg-gray-500 rounded-lg shadow-md hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition-all"
           onclick="my_modal_4.showModal()"
@@ -180,12 +180,13 @@ import { ref, onMounted } from "vue";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
+
 // ข้อมูล Profile
 const token = ref("");
 const decodedToken = ref(null);
 const username = ref(null);
 const role = ref(null);
-const id = ref(null)
+const id = ref(null);
 
 // ตัวแปรและฟังก์ชันสำหรับแก้ไข Username
 const editingUsername = ref(false);
@@ -199,11 +200,11 @@ const getCookie = () => {
   try {
     token.value = Cookies.get("token");
     if (token.value) {
-      decodedToken.value = jwtDecode(token.value)
-      console.log(`MainMenu-->${decodedToken.value}`)
-      id.value = decodedToken.value.id
-      username.value = decodedToken.value.username
-      role.value = decodedToken.value.role
+      decodedToken.value = jwtDecode(token.value);
+      console.log(`MainMenu-->${decodedToken.value}`);
+      id.value = decodedToken.value.id;
+      username.value = decodedToken.value.username;
+      role.value = decodedToken.value.role;
     } else {
       decodedToken.value = null;
     }
@@ -219,10 +220,10 @@ function startEditUsername() {
 }
 async function confirmEditUsername() {
   const formData = {
-    username: tempUsername.value
-  }
-  await axios.put(`http://localhost:3000/putusername/${id.value}`, formData)
-  editingUsername.value = false
+    username: tempUsername.value,
+  };
+  await axios.put(`http://localhost:3000/putusername/${id.value}`, formData);
+  editingUsername.value = false;
 }
 
 function cancelEditUsername() {
