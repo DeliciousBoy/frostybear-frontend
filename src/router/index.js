@@ -15,6 +15,7 @@ import { components } from "daisyui/imports";
 import CartShow from "../components/CartShow.vue"
 import CartList from "../components/CartList.vue"
 import ProductShow from "../components/ProductShow.vue"
+import Cookies from 'js-cookie';
 
 const routes = [
   {
@@ -31,11 +32,6 @@ const routes = [
         name: "Shop",
         component: ShopPage,
       },
-      // {
-      //   path: "profile",
-      //   name: "Profile",
-      //   component: ProfilePage,
-      // },
       {
         path: "Profile",
         name: "Profile",
@@ -45,6 +41,7 @@ const routes = [
         path: "checkout",
         name: "Checkout",
         component: CheckoutPage,
+        meta: { requiresAuth: true }
       },
       {
         path: "dropdown",
@@ -89,35 +86,24 @@ const routes = [
         name: "registerPage",
         component: RegisterPage,
       },
-      /* ถ้าอยากเพิ่มหน้า Register หรือ Change password ก็เพิ่มตรงนี้ได้เลย */
-      // {
-      //   path: "register",
-      //   name: "Register",
-      //   component: RegisterPage
-      // },
-      // {
-      //   path: "change-password",
-      //   name: "ChangePassword",
-      //   component: ChangePasswordPage,
-      // },
     ],
   },
-  // {
-  //   path: "/profile",
-  //   components: ProfileLayout,
-  //   children: [
-  //     {
-  //       path: "",
-  //       name: "profile",
-  //       components: Profile,
-  //     }
-  //   ]
-  // },
 ];
 
 const router = createRouter({
   history: createWebHistory(),
   routes,
 });
+
+router.beforeEach((to, from, next) => {
+  const token = Cookies.get('token')
+  const isAuthenticated = !!token
+
+  if (to.matched.some(record => record.meta.requiresAuth) && !isAuthenticated) {
+    next('/login')
+  } else {
+    next()
+  }
+})
 
 export default router;

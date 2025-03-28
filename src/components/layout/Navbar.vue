@@ -13,14 +13,16 @@
             <Bars3Icon class="size-6" aria-hidden="true" />
           </button>
         </div>
+
+        <!-- ในส่วนเมนูปกติ (Desktop) -->
         <div class="hidden lg:flex lg:gap-x-12">
           <router-link to="/" class="text-xl font-bold text-gray-900">Home</router-link>
           <router-link to="/shop" class="text-xl font-bold text-gray-900">Shop</router-link>
-          <router-link to="/checkout" class="text-xl font-bold text-gray-900">Checkout</router-link>
-        <!-- Cart Info (only shown when logged in) -->
-        <div v-if="decodedToken" class="hidden lg:flex items-center mx-4">
-          <CartInfoTemp />
-        </div>
+          <router-link v-if="decodedToken" to="/checkout" class="text-xl font-bold text-gray-900">Checkout</router-link>
+          <!-- Cart Info (only shown when logged in) -->
+          <div v-if="decodedToken" class="hidden lg:flex items-center mx-4">
+            <CartInfoTemp />
+          </div>
         </div>
 
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
@@ -50,12 +52,17 @@
           </div>
           <div class="mt-6 flow-root">
             <div class="-my-6 divide-y divide-gray-500/10">
+
+
+             <!-- ในส่วนเมนูมือถือ (Mobile) -->
               <div class="space-y-2 py-6">
                 <router-link to="/" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-bold text-gray-900 hover:bg-gray-50">Home</router-link>
                 <router-link to="/shop" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-bold text-gray-900 hover:bg-gray-50">Shop</router-link>
-                <router-link to="/checkout" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-bold text-gray-900 hover:bg-gray-50">Checkout</router-link>
-                  <CartInfoTemp />
+                <router-link v-if="decodedToken" to="/checkout" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-bold text-gray-900 hover:bg-gray-50">Checkout</router-link>
+                <CartInfoTemp v-if="decodedToken" />
               </div>
+
+              
               <div class="py-6">
                 <router-link v-if="!decodedToken" to="/login" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-bold text-gray-900 hover:bg-gray-50">Log in</router-link>
                 <div v-else class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-bold text-gray-900">
