@@ -33,7 +33,7 @@
         <dialog id="username_modal" class="modal">
           <div class="modal-box">
             <form method="dialog">
-              <h4 class="text-xl text-black">Change Password</h4>
+              <h4 class="text-xl text-black">Change Username</h4>
               <div class="mb-5 mt-2">
                 <input
                   v-model="username"
