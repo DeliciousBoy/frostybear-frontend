@@ -26,7 +26,7 @@
         </div>
 
         <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-          <router-link v-if="!decodedToken" to="/login" class="text-xl font-bold text-gray-900">Log in <span
+          <router-link v-if="!decodedToken" to="/login" class="text-xl hover:text-indigo-600 font-bold text-gray-900">Log in <span
                 aria-hidden="true">&rarr;</span></router-link>
           <div v-else class="flex items-center gap-4">
            <router-link to="/profile"> <span class="text-xl hover:text-indigo-600 font-bold text-gray-900">Welcome, {{ username }}</span> </router-link>
@@ -64,7 +64,7 @@
 
 
               <div class="py-6">
-                <router-link v-if="!decodedToken" to="/login" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-bold text-gray-900 hover:bg-gray-50">Log in</router-link>
+                <router-link v-if="!decodedToken" to="/login" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-bold hover:text-indigo-600 text-gray-900 hover:bg-gray-50">Log in</router-link>
                 <div v-else class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-bold text-gray-900">
                    <router-link to="/profile" class="hover:text-indigo-600 cursor-pointer"> <p>Welcome, {{ username }} </p></router-link>
                   <button @click="memlogout" class="text-base/7 hover:text-indigo-600 font-bold text-gray-900 hover:bg-gray-50 cursor-pointer">Logout</button>

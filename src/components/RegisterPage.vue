@@ -1,6 +1,6 @@
 <template>
   <div
-    class="absolute h-screen w-screen bg-neutral-950 items-center px-5 py-24 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
+    class="animate__animated animate__fadeIn absolute h-screen w-screen bg-neutral-950 items-center px-5 py-24 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]"
   >
     <div class="glass-morphism max-w-sm rounded-lg overflow shadow-lg mx-auto">
       <div class="p-6">

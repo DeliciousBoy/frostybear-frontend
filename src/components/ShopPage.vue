@@ -495,42 +495,6 @@ const handleFilterClick = async (filter) => {
   }
 };
 
-// // ฟังก์ชันสำหรับอนิเมชั่นตะกร้า
-// const animateCart = async (product) => {
-//   if (product.isBouncing) return;
-  
-//   product.isBouncing = true;
-  
-//   try {
-//     // ตรวจสอบการล็อกอินก่อน
-//     await getCookie();
-//     if (!username.value) {
-//       alert("กรุณาล็อกอินก่อนเพิ่มสินค้าในตะกร้า");
-//       router.push('/login');
-//       return;
-//     }
-
-//     // ตรวจสอบหรือสร้างตะกร้าใหม่
-//     if (!cartId.value) {
-//       cartId.value = await chkCart();
-//       if (!cartId.value) {
-//         cartId.value = await addCart();
-//       }
-//     }
-
-//     // เพิ่มสินค้าในตะกร้า
-//     const success = await addCartDtl(product);
-//     if (success) {
-//       EventBus.emit('cartdtlOK', { id: cartId.value });
-//     }
-//   } catch (error) {
-//     console.error("Error adding to cart:", error);
-//     alert("เกิดข้อผิดพลาดในการเพิ่มสินค้า");
-//   } finally {
-//     product.isBouncing = false;
-//   }
-// };
-
 // โหลดข้อมูลเมื่อ component ถูกโหลด
 onMounted(async () => {
   await getCookie();

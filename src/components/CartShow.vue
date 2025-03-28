@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-8xl mx-auto p-6">
+  <div class="max-w-8xl mx-auto p-6 animate__animated animate__fadeIn">
     <div v-if="username == cusId">
       <div v-for="(ct, index) in cart" :key="index" class="mt-5">
         <div class="bg-pink-100 p-5 rounded-2xl shadow-lg border border-pink-300">
@@ -73,6 +73,7 @@ axios.defaults.withCredentials = true;
 import { EventBus } from "../event-bus";
 import Cookies from "js-cookie"; //imporo js-cookie มาใช้งาน
 import { jwtDecode } from "jwt-decode"; //ใช้แทน jsonwebtoken เพราะ jsonwebtoken ไม่เข้ากับ Vue.js
+import { clearCache } from '../../src/services/cacheService'
 
 export default {
   name: "CartShow",
@@ -140,6 +141,7 @@ export default {
           EventBus.emit("cart_updated");
           EventBus.emit("cart_deleted", { cartId: this.cartId });
           EventBus.emit("cartdtlOK", { id: null });
+          clearCache()
           this.$router.push("/");
         }
       } catch (err) {
@@ -161,6 +163,7 @@ export default {
           EventBus.emit("checkout_completed");
           EventBus.emit("cart_updated");
           EventBus.emit("cartdtlOK", { id: null });
+          clearCache()
           this.$router.push("/history");
         }
       } catch (err) {

@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 bg-gray-50 min-h-screen">
+  <div class="p-6 bg-gray-50 min-h-screen animate__animated animate__fadeIn">
     <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-2xl overflow-hidden">
       <div class="bg-gradient-to-r from-pink-400 to-red-400 p-4 text-white text-lg font-semibold">
         🛒 ประวัติการสั่งซื้อของคุณ

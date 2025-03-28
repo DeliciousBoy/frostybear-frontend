@@ -11,38 +11,30 @@
 
       <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
         <a v-for="product in products" :key="product.id" :href="product.href" class="group">
+        <div @click="goToProduct(product.id)" class="cursor-pointer">
           <img :src="product.imageSrc" :alt="product.imageAlt"
             class="aspect-square w-full rounded-lg bg-gray-200 object-cover group-hover:opacity-75 xl:aspect-7/8" />
+        </div>
           <h3 class="mt-4 text-sm text-gray-700">{{ product.name }}</h3>
           <p class="mt-1 text-lg font-medium text-gray-900">{{ product.price }}</p>
         </a>
       </div>
     </div>
   </div>
-
-      <!-- <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-      <div class="grid grid-cols-1 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8">
-        <div v-for="product in products" :key="product.id" class="group box relative">
-          <div v-for="n in 8" :key="n" class="hover-point"></div>
-          <div class="box-contents">
-            <img :src="product.imageSrc" :alt="product.imageAlt"
-              class="aspect-square w-full rounded-lg bg-gray-200 object-cover xl:aspect-7/8" />
-          </div>
-
-          <h3 class="mt-4 text-sm text-gray-700 z-10 relative">{{ product.name }}</h3>
-          <p class="mt-1 text-lg font-medium text-gray-900 z-10 relative">{{ product.price }}</p>
-        </div>
-      </div>
-    </div>
-  </div> -->
   
 </template>
 
 <script setup>
 import { ref, onMounted } from "vue";
 import { getTrendProduct } from "../services/productService";
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const products = ref([]);
+
+const goToProduct = (productId) => {
+  router.push(`/products/${productId}`)
+}
 
 onMounted(async () => {
   products.value = await getTrendProduct();
