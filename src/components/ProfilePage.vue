@@ -21,7 +21,7 @@
         ]">
           Change Password
         </button>
-        <button @click="currentTab = 'ProductManagement'" :class="[
+        <button v-if="role == 'admin'" @click="currentTab = 'ProductManagement'" :class="[
           'block w-full text-left px-6 py-2',
           currentTab === 'ProductManagement'
             ? 'font-medium text-2xl  text-gray-700 bg-gray-100'
@@ -52,13 +52,44 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
 import ProductManage from "@/components/ProductManage.vue";
 import Profile from "@/components/Profile.vue";
 import Changepassword from "@/components/Changepassword.vue";
+import Cookies from 'js-cookie'
+import { jwtDecode } from 'jwt-decode'
 
 // ตัวแปรควบคุมแท็บปัจจุบัน
 const currentTab = ref('profile')
+const decodedToken = ref(null)
+const token = ref("")
+const username = ref(null)
+const role = ref(null)
+const login = ref(false)
+
+const getCookie = () => {
+  try {
+    token.value = Cookies.get('token');
+    if (token.value) {
+      decodedToken.value = jwtDecode(token.value)
+      console.log(`MainMenu-->${decodedToken.value}`)
+      username.value = decodedToken.value.username
+      role.value = decodedToken.value.role
+      console.log(role.value)
+    } else {
+      decodedToken.value = null
+    }
+  } catch (err) {
+    console.error(`fail decode token ${err}`)
+    decodedToken.value = null
+  }
+}
+
+onMounted( async () => {
+  await getCookie();
+
+});
+
 
 </script>
 

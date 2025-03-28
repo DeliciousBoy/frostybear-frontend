@@ -161,7 +161,7 @@ export default {
           EventBus.emit("checkout_completed");
           EventBus.emit("cart_updated");
           EventBus.emit("cartdtlOK", { id: null });
-          this.$router.push("/checkout");
+          this.$router.push("/history");
         }
       } catch (err) {
         console.error("Error confirming cart:", err);

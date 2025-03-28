@@ -35,7 +35,8 @@ const routes = [
       {
         path: "Profile",
         name: "Profile",
-        component: ProfilePage
+        component: ProfilePage,
+        meta: { requiresAuth: true }
       },
       {
         path: "history",
