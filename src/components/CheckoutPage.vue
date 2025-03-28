@@ -1,34 +1,46 @@
 <template>
-    <!-- <h1>{{ username }}</h1> -->
-    <table class="table">
+  <div class="overflow-x-auto p-6 bg-gray-50 min-h-screen flex justify-center">
+    <div class="w-full max-w-8xl bg-white shadow-lg rounded-lg overflow-hidden">
+      <!-- หัวข้อ -->
+      <div class="bg-gradient-to-r from-pink-500 to-red-500 p-5 text-white text-lg font-semibold text-start">
+        ประวัติคำสั่งซื้อ
+      </div>
+
+      <table class="w-full border-collapse">
         <thead>
-        <tr class="bg-secondary bg-opacity-10" style="height: 30px;">
-            <td></td>
-            <td>เลขที่</td>
-            <td>วันที่</td>
-            <td class="text-center">จำนวน</td>
-            <td class="text-end">ยอดเงิน</td>
-            <td></td>
-        </tr>
+          <tr class="bg-gray-200 text-gray-700 text-sm uppercase tracking-wider">
+            <th class="p-4 text-center">#</th>
+            <th class="p-4 w-1/12 text-center">เลขที่</th>
+            <th class="p-4 w-2/12 text-left">วันที่</th>
+            <th class="p-4 w-2/12 text-center">จำนวน</th>
+            <th class="p-4 w-0/12 text-start">ยอดเงิน</th>
+          </tr>
         </thead>
         <tbody>
-        <tr v-for="(ct, cartId) in cart" :key="cartId" style="height: 30px;" >
-            <td>{{ ct.row_number }}</td>
-            <td><span class="text-primary">
-                    <router-link :to="`/cartshow/${ct.cartId }`" style="text-decoration: none;">
-                        {{ ct.cartId }}
-                    </router-link>
-                </span>
+          <tr
+            v-for="(ct, cartId) in cart"
+            :key="cartId"
+            class="border-b border-gray-300 hover:bg-gray-100 transition-all duration-200"
+          >
+            <td class="p-4  w-0/12 text-center font-semibold text-gray-600">{{ ct.row_number }}</td>
+            <td class="p-4 w-5/12 text-center">
+              <router-link
+                :to="`/cartshow/${ct.cartId}`"
+                class="text-blue-600 hover:text-blue-800 font-medium underline"
+              >
+                {{ ct.cartId }}
+              </router-link>
             </td>
-            <td>{{ formattedDate(ct.cartDate) }}</td>
-            <td class="text-center">{{ (ct.sqty??0) }}</td>
-            <td class="text-end">{{ (ct.sprice??0).toLocaleString()}}</td>
-            <td class="text-center">
-                <i class="bi-x-lg text-danger"></i>
+            <td class="p-4 text-gray-600">{{ formattedDate(ct.cartDate) }}</td>
+            <td class="p-4 w-4/12 text-center text-gray-700 font-medium">{{ ct.sqty ?? 0 }}</td>
+            <td class="p-4 w-5/12 text-start text-green-600 font-semibold">
+              ฿{{ (ct.sprice ?? 0).toLocaleString() }}
             </td>
-        </tr>
+          </tr>
         </tbody>
-    </table>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>

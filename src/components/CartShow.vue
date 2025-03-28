@@ -1,81 +1,66 @@
 <template>
-  <div v-if="username == cusId">
-    <div v-for="(ct, index) in cart" :key="index" class="mt-5">
-      <div class="bg-gray-100 p-5 rounded-lg shadow-md">
-        <div>
-          <h4 class="text-xl font-semibold text-blue-600 opacity-75">
-            คำสั่งซื้อเลขที่ {{ ct.cartId }}
-          </h4>
-          <h5 class="mt-2 text-gray-600">
-            สั่งซื้อวันที่ {{ formattedDate(ct.cartDate) }}
-          </h5>
-          <div class="text-red-500 text-right font-medium">
-            จำนวนสินค้า {{ ct.sqty }} ชิ้น, ยอดเงิน
-            {{ (ct.sprice ?? 0).toLocaleString() }} บาท
-          </div>
-          <hr class="my-3 border-gray-300" />
-          
-          <!-- ส่วนที่แก้ไข: เงื่อนไขแสดงปุ่ม -->
-          <div class="flex justify-between">
-            <template v-if="!ct.cartCf">
-              <button
-                class="bg-red-500 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-                @click="deleteCart"
-              >
-                <i class="bi-cart-x-fill"></i> ลบตะกร้าสินค้า
-              </button>
-              <button
-                class="bg-blue-500 text-white px-4 py-2 rounded-lg flex items-center gap-2"
-                @click="confirmCart"
-              >
-                <i class="bi-currency-dollar"></i> ยืนยันสั่งสินค้า
-              </button>
-            </template>
-            <div v-else class="w-full bg-green-100 text-green-800 p-3 rounded-lg text-center">
-              <i class="bi-check-circle-fill mr-2"></i> ยืนยันคำสั่งซื้อแล้ว
+  <div class="max-w-8xl mx-auto p-6">
+    <div v-if="username == cusId">
+      <div v-for="(ct, index) in cart" :key="index" class="mt-5">
+        <div class="bg-pink-100 p-5 rounded-2xl shadow-lg border border-pink-300">
+          <div>
+            <h4 class="text-2xl font-bold text-pink-700">
+              🍨 คำสั่งซื้อเลขที่ {{ ct.cartId }}
+            </h4>
+            <h5 class="mt-2 text-gray-600">สั่งซื้อวันที่ {{ formattedDate(ct.cartDate) }}</h5>
+            <div class="text-red-600 text-right font-semibold text-lg">
+              จำนวนสินค้า {{ ct.sqty }} ชิ้น, ยอดเงิน {{ (ct.sprice ?? 0).toLocaleString() }} บาท
+            </div>
+            <hr class="my-4 border-pink-300" />
+            
+            <div class="flex justify-between items-center">
+              <template v-if="!ct.cartCf">
+                <button
+                  class="bg-red-400 text-white px-5 py-2 rounded-xl shadow-md hover:bg-red-500 transition"
+                  @click="deleteCart"
+                >
+                  ลบตะกร้า
+                </button>
+                <button
+                  class="bg-blue-400 text-white px-5 py-2 rounded-xl shadow-md hover:bg-blue-500 transition"
+                  @click="confirmCart"
+                >
+                  ยืนยันสั่งซื้อ
+                </button>
+              </template>
+              <div v-else class="w-full bg-green-200 text-green-800 p-3 rounded-xl text-center font-semibold">
+                ยืนยันคำสั่งซื้อแล้ว
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- ส่วน Detail Table (เดิม) -->
-    <table class="w-full mt-3 border-collapse border border-gray-300 text-left">
+      <!-- ตารางสินค้า -->
+    <table class="w-full mt-6 border-collapse border border-gray-300 text-left bg-white shadow-lg rounded-xl overflow-hidden">
       <thead>
-        <tr class="bg-gray-200 text-gray-700">
-          <th class="p-2"></th>
-          <th class="p-2">สินค้า</th>
-          <th class="p-2"></th>
-          <th class="p-2 text-right">ราคาต่อหน่วย</th>
-          <th class="p-2 text-center">จำนวน</th>
-          <th class="p-2 text-right">เป็นเงิน</th>
-          <th class="p-2"></th>
+        <tr class="bg-pink-200 text-pink-800">
+          <th class="p-4 w-1/12">#</th>
+          <th class="p-3 w-3/12 text-left">สินค้า</th>
+          <th class="p-3 w-2/12 text-left">ราคาต่อหน่วย</th>
+          <th class="p-3 w-2/12 text-center">จำนวน</th>
+          <th class="p-4 w-2/12 text-center">เป็นเงิน</th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          v-for="(ctd, pdId) in cartDtl"
-          :key="pdId"
-          class="border-b border-gray-300"
-        >
-          <td class="p-2">{{ ctd.row_number }}</td>
-          <td class="p-2">{{ ctd.pdId }}</td>
-          <td class="p-2">{{ ctd.pdName }}</td>
-          <td class="p-2 text-right">{{ ctd.price }}</td>
-          <td class="p-2 text-center">{{ ctd.qty }}</td>
-          <td class="p-2 text-right">
-            {{ (ctd.price * ctd.qty ?? 0).toLocaleString() }}
-          </td>
-          <td class="p-2 text-center">
-            <i class="bi-x-lg text-red-500 cursor-pointer"></i>
-          </td>
+        <tr v-for="(ctd, index) in cartDtl" :key="index" class="border-b border-gray-300 hover:bg-pink-50 transition">
+          <td class="p-4 w-1/12">{{ index + 1 }}</td>
+          <td class="p-4 w-3/12 text-left">{{ ctd.product_name }}</td>
+          <td class="p-4 w-2/12 text-left">{{ ctd.price.toLocaleString() }}</td>
+          <td class="p-4 w-2/12 text-center">{{ ctd.qty }}</td>
+          <td class="p-4 w-2/12 text-center">{{ (ctd.price * ctd.qty).toLocaleString() }}</td>
         </tr>
       </tbody>
     </table>
-  </div>
-  <div v-else>
-    <div class="bg-red-100 text-red-700 p-4 rounded-lg mt-5">
-      คุณไม่มีสิทธิ์ดูรายการนี้
+
+    </div>
+    <div v-else class="bg-red-100 text-red-700 p-4 rounded-xl text-center mt-5">
+      ไม่มีสินค้าในตระกร้า
     </div>
   </div>
 </template>
