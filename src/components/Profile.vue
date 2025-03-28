@@ -185,6 +185,7 @@ const token = ref("");
 const decodedToken = ref(null);
 const username = ref(null);
 const role = ref(null);
+const id = ref(null)
 
 // ตัวแปรและฟังก์ชันสำหรับแก้ไข Username
 const editingUsername = ref(false);
@@ -222,13 +223,7 @@ async function confirmEditUsername() {
   }
   await axios.put(`http://localhost:3000/putusername/${id.value}`, formData)
   editingUsername.value = false
-  if (response.status === 200) {
-
-      // หากใช้ cookie ในการเก็บข้อมูลผู้ใช้ ก็สามารถอัปเดต cookie ด้วยได้
-      document.cookie = `username=${formData.username}; path=/;`
-    }
 }
-
 
 function cancelEditUsername() {
   editingUsername.value = false;
