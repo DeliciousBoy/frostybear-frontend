@@ -98,14 +98,13 @@
     </button>
   </div>
 </div>
-
-
 </template>
 
 <script setup>
 import { ref, onMounted, reactive, watch } from 'vue'
 import axios from "axios";
 import { getBrandsWithCache, getProductTypesWithCache } from '../services/systemParamService'
+import { jwtDecode } from 'jwt-decode'
 
 const props = defineProps({
   product: {
@@ -113,6 +112,36 @@ const props = defineProps({
     required: true
   }
 })
+
+// ฟังก์ชันอ่านคุกกี้แบบตรงๆ
+function getCookie(name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+  return null
+}
+
+// ดึงข้อมูลผู้ใช้จาก Token
+function getUserFromToken() {
+  try {
+    const token = getCookie('token')
+    if (!token) {
+      console.error('No token found in cookies')
+      return null
+    }
+    const decodedToken = jwtDecode(token)
+    console.log("Decoded Token:", decodedToken.username)
+    
+    // ลองหาค่า username จาก property ต่างๆ
+    return decodedToken.username || 
+           decodedToken.sub || 
+           decodedToken.userName || 
+           decodedToken.preferred_username
+  } catch (err) {
+    console.error(`Failed to decode token: ${err}`)
+    return null
+  }
+}
 
 const editData = reactive({
   id: props.product.id,
@@ -123,9 +152,11 @@ const editData = reactive({
   brand: props.product.brand_name,
   product_type: props.product.product_type,
 })
+
 // ข้อมูล dropdown ที่ถูกเลือก
 const selectedBrand = ref(null)
 const selectedProductType = ref(null)
+const username = ref(null) // เก็บ username จาก token
 
 // เก็บรายการแบรนด์และประเภทสินค้า
 const brands = ref([])
@@ -136,40 +167,41 @@ const emit = defineEmits(['closeForm', 'update'])
 // ดึงข้อมูลแบรนด์และประเภทสินค้าทันทีที่คอมโพเนนต์ถูก mount
 onMounted(async () => {
   try {
+    // ดึง username จาก token
+    username.value = getUserFromToken()
+    
     brands.value = await getBrandsWithCache()
     productTypes.value = await getProductTypesWithCache()
   } catch (error) {
     console.error('Error fetching data:', error)
   }
+  
   watch(
     () => editData.product_type,
     (newProductTypeCode) => {
-      // ถ้าไม่ได้เลือก หรือเป็นค่าว่าง
       if (!newProductTypeCode) {
         selectedProductType.value = null
         return
       }
-      // ค้นหา brand object จาก brands โดยเทียบกับ byte_type
       selectedProductType.value = productTypes.value.find(
         (p) => p.byte_name === newProductTypeCode
       ) || null
     },
-    { immediate: true } // ให้ทำครั้งแรกทันที (ตั้งค่าเริ่มต้น)
+    { immediate: true }
   )
+  
   watch(
     () => editData.brand,
     (newBrandCode) => {
-      // ถ้าไม่ได้เลือก หรือเป็นค่าว่าง
       if (!newBrandCode) {
         selectedBrand.value = null
         return
       }
-      // ค้นหา brand object จาก brands โดยเทียบกับ byte_type
       selectedBrand.value = brands.value.find(
         (b) => b.byte_name === newBrandCode
       ) || null
     },
-    { immediate: true } // ให้ทำครั้งแรกทันที (ตั้งค่าเริ่มต้น)
+    { immediate: true }
   )
 })
 
@@ -177,14 +209,11 @@ onMounted(async () => {
 function onFileChange(e) {
   const file = e.target.files[0]
   if (file) {
-    // ใช้ FileReader เพื่ออ่านไฟล์รูปเป็น Base64
     const reader = new FileReader()
     reader.onload = (event) => {
-      // เมื่ออ่านไฟล์เสร็จ ให้เอาผลลัพธ์ (Base64) เก็บใน editData.image
       editData.image = event.target.result
-      // event.target.result จะเป็น string ลักษณะ "data:image/png;base64,iVBORw0K..."
     }
-    reader.readAsDataURL(file) // สั่งอ่านไฟล์เป็น Base64
+    reader.readAsDataURL(file)
   }
 }
 
@@ -202,6 +231,12 @@ function selectProductType(type) {
 
 // ฟังก์ชัน Submit Form
 async function submitForm() {
+  // ตรวจสอบว่ามี username หรือไม่
+  if (!username.value) {
+    alert('กรุณาเข้าสู่ระบบก่อนทำการแก้ไขสินค้า')
+    return
+  }
+
   // เตรียมข้อมูลที่จะส่ง
   const formData = {
     product_id: editData.id,
@@ -209,29 +244,30 @@ async function submitForm() {
     product_name: editData.name,
     product_detail: editData.detail,
     product_price: editData.price,
-    brand_id: selectedBrand.value.byte_type,
-    product_type: selectedProductType.value.byte_type,
+    brand_id: selectedBrand.value?.byte_type || null,
+    product_type: selectedProductType.value?.byte_type || null,
+    update_by: username.value
   };
 
-
   try {
-    // ส่งคำขอ PUT ไปที่ API โดยใช้ editData.id เป็นส่วนของ URL
-    const response = await axios.put(`http://localhost:3000/products/${editData.id}`, formData);
+    // ส่งคำขอ PUT ไปที่ API
+    const response = await axios.put(
+      `http://localhost:3000/products/${editData.id}`, 
+      formData,
+      {
+        withCredentials: true // ส่งคุกกี้ไปกับ request
+      }
+    );
+    
     emit('update')
     emit('closeForm')
   } catch (error) {
     console.error('API error:', error);
+    alert(`เกิดข้อผิดพลาด: ${error.response?.data?.error || error.message}`)
   }
-
 }
-
 
 function handleClose() {
   emit('closeForm')
 }
-
 </script>
-
-<style scoped>
-/* ตัวอย่างการปรับแต่งสไตล์เพิ่มเติม */
-</style>

@@ -38,8 +38,8 @@ const routes = [
         component: ProfilePage
       },
       {
-        path: "checkout",
-        name: "Checkout",
+        path: "history",
+        name: "History",
         component: CheckoutPage,
         meta: { requiresAuth: true }
       },

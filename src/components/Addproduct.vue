@@ -108,6 +108,7 @@
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 import { getBrandsWithCache, getProductTypesWithCache } from '../services/systemParamService'
+import { jwtDecode } from 'jwt-decode'
 
 // ข้อมูลฟอร์ม
 const productName = ref('')
@@ -115,6 +116,7 @@ const productDescription = ref('')
 const productPrice = ref(0)
 const selectedBrand = ref(null)
 const selectedProductType = ref(null)
+const username = ref(null) // เพิ่มตัวแปรเก็บ username
 
 // เก็บไฟล์รูปสินค้า และรูป preview
 const previewImage = ref(null)
@@ -125,9 +127,37 @@ const productTypes = ref([])
 
 const emit = defineEmits(['closeForm', 'update'])
 
+// ฟังก์ชันอ่านคุกกี้แบบตรงๆ
+function getCookie(name) {
+  const value = `; ${document.cookie}`
+  const parts = value.split(`; ${name}=`)
+  if (parts.length === 2) return parts.pop().split(';').shift()
+  return null
+}
+
+// ดึงข้อมูลผู้ใช้จาก Token
+function getUserFromToken() {
+  try {
+    const token = getCookie('token')
+    if (!token) {
+      console.error('No token found in cookies')
+      return null
+    }
+    const decodedToken = jwtDecode(token)
+    console.log("MY USERNAME:::!!!", decodedToken)
+    return decodedToken.username
+  } catch (err) {
+    console.error(`Failed to decode token: ${err}`)
+    return null
+  }
+}
+
 // ดึงข้อมูลแบรนด์และประเภทสินค้าทันทีที่คอมโพเนนต์ถูก mount
 onMounted(async () => {
   try {
+    // ดึง username จาก token
+    username.value = getUserFromToken()
+    console.log(username.value)
     brands.value = await getBrandsWithCache()
     productTypes.value = await getProductTypesWithCache()
   } catch (error) {
@@ -162,22 +192,39 @@ function selectProductType(type) {
 
 // ฟังก์ชัน Submit Form
 async function submitForm() {
+  // ตรวจสอบว่ามี username หรือไม่
+  if (!username.value) {
+    alert('กรุณาเข้าสู่ระบบก่อนทำการเพิ่มสินค้า')
+    return
+  }
+
+  // ตรวจสอบข้อมูลที่จำเป็น
+  if (!productName.value) {
+    alert('กรุณากรอกชื่อสินค้า')
+    return
+  }
+
   const formData = {
     product_image: previewImage.value,
     product_name: productName.value,
     product_detail: productDescription.value,
     product_price: productPrice.value,
-    brand_id: selectedBrand.value.byte_type,
-    product_type: selectedProductType.value.byte_type,
+    brand_id: selectedBrand.value?.byte_type || null,
+    product_type: selectedProductType.value?.byte_type || null,
+    create_by: username.value // ส่ง username ไปยัง API
   };
 
   try {
-    // ส่งคำขอ PUT ไปที่ API โดยใช้ editData.id เป็นส่วนของ URL
-    const response = await axios.post(`http://localhost:3000/products`, formData);
+    // ส่งคำขอ POST ไปที่ API
+    const response = await axios.post(`http://localhost:3000/products`, formData, {
+      withCredentials: true // ส่งคุกกี้ไปกับ request
+    });
+    
     emit('update')
     emit('closeForm')
   } catch (error) {
     console.error('API error:', error);
+    alert(`เกิดข้อผิดพลาด: ${error.response?.data?.error || error.message}`)
   }
 }
 

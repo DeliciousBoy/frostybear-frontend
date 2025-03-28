@@ -37,6 +37,7 @@
       </div>
 
       <!-- ตารางสินค้า -->
+  <div class="overflow-x-auto">
     <table class="w-full mt-6 border-collapse border border-gray-300 text-left bg-white shadow-lg rounded-xl overflow-hidden">
       <thead>
         <tr class="bg-pink-200 text-pink-800">
@@ -57,6 +58,7 @@
         </tr>
       </tbody>
     </table>
+  </div>
 
     </div>
     <div v-else class="bg-red-100 text-red-700 p-4 rounded-xl text-center mt-5">
