@@ -16,9 +16,9 @@
 
         <!-- ในส่วนเมนูปกติ (Desktop) -->
         <div class="hidden lg:flex lg:gap-x-12">
-          <router-link to="/" class="text-xl font-bold text-gray-900">Home</router-link>
-          <router-link to="/shop" class="text-xl font-bold text-gray-900">Shop</router-link>
-          <router-link v-if="decodedToken" to="/history" class="text-xl font-bold text-gray-900">History</router-link>
+          <router-link to="/" class="text-xl hover:text-indigo-600 font-bold text-gray-900">Home</router-link>
+          <router-link to="/shop" class="text-xl hover:text-indigo-600 font-bold text-gray-900">Shop</router-link>
+          <router-link v-if="decodedToken" to="/history" class="text-xl hover:text-indigo-600 font-bold text-gray-900">History</router-link>
           <!-- Cart Info (only shown when logged in) -->
           <div v-if="decodedToken" class="hidden lg:flex items-center mx-4">
             <CartInfoTemp />
@@ -29,8 +29,8 @@
           <router-link v-if="!decodedToken" to="/login" class="text-xl font-bold text-gray-900">Log in <span
                 aria-hidden="true">&rarr;</span></router-link>
           <div v-else class="flex items-center gap-4">
-           <router-link to="/profile"> <span class="text-xl font-bold text-gray-900">Welcome, {{ username }}</span> </router-link>
-            <button @click="memlogout" class="text-xl font-bold text-gray-900">Logout</button>
+           <router-link to="/profile"> <span class="text-xl hover:text-indigo-600 font-bold text-gray-900">Welcome, {{ username }}</span> </router-link>
+            <button @click="memlogout" class="text-xl hover:text-indigo-600 font-bold text-gray-900 cursor-pointer">Logout</button>
           </div>
         </div>
       </nav>
@@ -56,9 +56,9 @@
 
              <!-- ในส่วนเมนูมือถือ (Mobile) -->
               <div class="space-y-2 py-6">
-                <router-link to="/" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-bold text-gray-900 hover:bg-gray-50">Home</router-link>
-                <router-link to="/shop" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-bold text-gray-900 hover:bg-gray-50">Shop</router-link>
-                <router-link v-if="decodedToken" to="/history" class="-mx-3 block rounded-lg px-3 py-2 text-base/7 font-bold text-gray-900 hover:bg-gray-50">History</router-link>
+                <router-link to="/" class="-mx-3 block hover:text-indigo-600 rounded-lg px-3 py-2 text-base/7 font-bold text-gray-900 hover:bg-gray-50">Home</router-link>
+                <router-link to="/shop" class="-mx-3 block hover:text-indigo-600 rounded-lg px-3 py-2 text-base/7 font-bold text-gray-900 hover:bg-gray-50">Shop</router-link>
+                <router-link v-if="decodedToken" to="/history" class="-mx-3 block hover:text-indigo-600 rounded-lg px-3 py-2 text-base/7 font-bold text-gray-900 hover:bg-gray-50">History</router-link>
                 <CartInfoTemp v-if="decodedToken" />
               </div>
 
@@ -66,8 +66,8 @@
               <div class="py-6">
                 <router-link v-if="!decodedToken" to="/login" class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-bold text-gray-900 hover:bg-gray-50">Log in</router-link>
                 <div v-else class="-mx-3 block rounded-lg px-3 py-2.5 text-base/7 font-bold text-gray-900">
-                   <router-link to="/profile"> <p>Welcome, {{ username }} </p></router-link>
-                  <button @click="memlogout" class="text-base/7 font-bold text-gray-900 hover:bg-gray-50">Logout</button>
+                   <router-link to="/profile" class="hover:text-indigo-600 cursor-pointer"> <p>Welcome, {{ username }} </p></router-link>
+                  <button @click="memlogout" class="text-base/7 hover:text-indigo-600 font-bold text-gray-900 hover:bg-gray-50 cursor-pointer">Logout</button>
                 </div>
               </div>
             </div>
