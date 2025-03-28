@@ -103,18 +103,49 @@
 
 <script setup>
 import { ref, onMounted } from 'vue'
-import axios from 'axios';
+import Cookies from 'js-cookie'
+import bcrypt from "bcryptjs";
+import { jwtDecode } from 'jwt-decode'
+import axios from 'axios'
+
+
+// ข้อมูล Profile
+const token = ref("")
+const id = ref(null)
+const decodedToken = ref(null)
 
 // ข้อมูลสำหรับเปลี่ยนรหัสผ่าน
-const oldPassword = ref('')
-const confirmoldPassword = ref('')
-const newPassword = ref('')
-const confirmNewPassword = ref('')
+const oldPassword = ref(null)
+const confirmoldPassword = ref(null)
+const newPassword = ref(null)
+const confirmNewPassword = ref(null)
+const isMatch = ref(null)
 
 // ตัวแปรสำหรับ toggle การแสดงผลรหัสผ่าน
 const showOldPassword = ref(false)
 const showNewPassword = ref(false)
 const showConfirmNewPassword = ref(false)
+
+onMounted(async () => {
+    await getCookie()
+})
+
+const getCookie = () => {
+    try {
+        token.value = Cookies.get('token')
+        if (token.value) {
+            decodedToken.value = jwtDecode(token.value)
+            console.log(`MainMenu-->${decodedToken.value}`)
+            id.value = decodedToken.value.id
+            confirmoldPassword.value = decodedToken.value.password
+        } else {
+            decodedToken.value = null
+        }
+    } catch (err) {
+        console.error(`fail decode token ${err}`)
+        decodedToken.value = null
+    }
+}
 
 function toggleOldPassword() {
     showOldPassword.value = !showOldPassword.value
@@ -127,8 +158,9 @@ function toggleConfirmNewPassword() {
 }
 
 // ฟังก์ชันอัปเดตรหัสผ่าน
-function updatePassword() {
-    if (newPassword.value !== oldPassword.value) {
+async function updatePassword() {
+    await hashPassword(oldPassword.value)
+    if (!isMatch.value) {
         alert('Passwod incorrect.')
         return
     }
@@ -136,11 +168,21 @@ function updatePassword() {
         alert('New password does not match confirm password.')
         return
     }
+    const formData = {
+        password: newPassword.value
+    }
+    await axios.put(`http://localhost:3000/putpassword/${id.value}`, formData)
     alert('Password updated successfully!')
     oldPassword.value = ''
     newPassword.value = ''
     confirmNewPassword.value = ''
 }
+
+async function hashPassword(password) {
+    const validate = await bcrypt.compare(password, confirmoldPassword.value);
+    isMatch.value = validate
+}
+
 </script>
 
 <style></style>
