@@ -59,7 +59,7 @@ export default {
   async created() {
     // ตัวอย่างการกำหนดค่า icon (ควรทำใน main.js หรือไฟล์ตั้งค่า FontAwesome)
     library.add(faCartShopping);
-    await this.loadPersistentCart();
+    // await this.loadPersistentCart();
   },
   async mounted() {
     //เริ่มใช้ Component ก็ให้ส่งสัญญานให้แสดงผล
