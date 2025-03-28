@@ -2,7 +2,7 @@
   <h2 class="text-xl font-semibold mb-4">Add Product</h2>
 
   <!-- ส่วนอัปโหลดรูปสินค้า -->
-  <div class="form-control mb-4">
+  <div class="form-control mb-4 animate__animated animate__fadeIn">
     <label class="label font-bold">Upload Product Image</label>
     <div class="flex items-center space-x-4">
       <!-- แสดงภาพตัวอย่าง ถ้ามี -->

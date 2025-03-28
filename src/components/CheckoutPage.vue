@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-auto p-6 bg-gray-50 min-h-screen flex justify-center">
+  <div class="overflow-x-auto p-6 bg-gray-50 min-h-screen flex justify-center animate__animated animate__fadeIn">
     <div class="w-full max-w-8xl bg-white shadow-lg rounded-lg overflow-hidden">
       <!-- หัวข้อ -->
       <div class="bg-gradient-to-r from-pink-500 to-red-500 p-5 text-white text-lg font-semibold text-start">

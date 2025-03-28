@@ -1,5 +1,5 @@
 <template>
-  <div class="flex min-h-screen bg-gray-100">
+  <div class="flex min-h-screen bg-gray-100 animate__animated animate__fadeIn">
     <!-- Sidebar -->
     <div class="w-64 bg-white border-r">
       <nav class="py-4">

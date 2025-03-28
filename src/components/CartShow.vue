@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-8xl mx-auto p-6">
+  <div class="max-w-8xl mx-auto p-6 animate__animated animate__fadeIn">
     <div v-if="username == cusId">
       <div v-for="(ct, index) in cart" :key="index" class="mt-5">
         <div class="bg-pink-100 p-5 rounded-2xl shadow-lg border border-pink-300">
