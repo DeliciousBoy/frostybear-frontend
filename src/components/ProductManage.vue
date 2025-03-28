@@ -120,7 +120,7 @@ const showConfirmPopup = ref(false)   // ควบคุมการแสดง
 const productToDelete = ref(null)     // เก็บ product id ที่ต้องการลบ
 
 onMounted(async () => {
-    fetchProducts()
+    await fetchProducts()
 })
 
 async function fetchProducts() {
