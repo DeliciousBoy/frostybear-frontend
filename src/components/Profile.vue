@@ -185,6 +185,7 @@ const token = ref("");
 const decodedToken = ref(null);
 const username = ref(null);
 const role = ref(null);
+const id = ref(null);
 
 // ตัวแปรและฟังก์ชันสำหรับแก้ไข Username
 const editingUsername = ref(false);
@@ -228,7 +229,6 @@ async function confirmEditUsername() {
       document.cookie = `username=${formData.username}; path=/;`
     }
 }
-
 
 function cancelEditUsername() {
   editingUsername.value = false;
