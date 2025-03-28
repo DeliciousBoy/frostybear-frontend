@@ -107,6 +107,7 @@ import axios from 'axios';
 
 // ข้อมูลสำหรับเปลี่ยนรหัสผ่าน
 const oldPassword = ref('')
+const confirmoldPassword = ref('')
 const newPassword = ref('')
 const confirmNewPassword = ref('')
 
@@ -127,6 +128,10 @@ function toggleConfirmNewPassword() {
 
 // ฟังก์ชันอัปเดตรหัสผ่าน
 function updatePassword() {
+    if (newPassword.value !== oldPassword.value) {
+        alert('Passwod incorrect.')
+        return
+    }
     if (newPassword.value !== confirmNewPassword.value) {
         alert('New password does not match confirm password.')
         return
