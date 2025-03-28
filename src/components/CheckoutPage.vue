@@ -6,7 +6,11 @@
         ประวัติคำสั่งซื้อ
       </div>
 
-      <table class="w-full border-collapse">
+      <div v-if="cart.length === 0" class="p-6 text-center text-gray-500 text-lg">
+        ไม่มีรายการประวัติการสั่งซื้อ
+      </div>
+
+      <table v-else class="w-full border-collapse">
         <thead>
           <tr class="bg-gray-200 text-gray-700 text-sm uppercase tracking-wider">
             <th class="p-4 text-center">#</th>
